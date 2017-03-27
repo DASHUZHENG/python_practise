@@ -20,7 +20,7 @@ class zProperty():
         #Basic Info, where name is specific
 
         self._eosr=8.3145
-        
+
         self._bpset=[
         "API","BWRGMA","CHARGE","CLSK","DCPLS","DGFORM","DGSFRM",
         "DHAQFM","DHFORM","DHSFRM","DHVLB","DLWC","DVBLNC","FREEZEPT",
@@ -41,9 +41,9 @@ class zProperty():
         "VIRIAL":(None,)}
         #Solid Cp is not intact, Virial is not incorporated
         self._eoslist=["IDEAL","RK","RKS","PR"]
-        
+
         self._biset=[]
-        
+
     def Basic_property_scala(self,prop):
         self.api=prop[0]
         self.bwrgma=prop[1]
@@ -166,8 +166,8 @@ class zProperty():
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Solid_volume",self.tpdata["SOLIDV"][0],error))
             result=None
-        return result 
-        
+        return result
+
     def Liquid_volume(self,temp,pres,p0=100000):
 
         equation=zEquation()
@@ -179,7 +179,7 @@ class zProperty():
             result=None
         return result
 
-        
+
     def Pressure_of_saturation(self,temp,pres,p0=100000):
     #As a demo
         equation=zEquation()
@@ -189,7 +189,7 @@ class zProperty():
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Antoine Like",self.tpdata["POV"][0],error))
             result=None
         return result
-        return result 
+        return result
 
     def Heat_of_vaporization(self,temp,pres,p0=100000):
 
@@ -228,7 +228,7 @@ class zProperty():
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Gas_cp",self.tpdata["GASCP"][0],error))
             result=None
-        
+
         return result
 
     def Virial(self):
@@ -247,12 +247,12 @@ class zProperty():
             print "Default Equation is RK"
 
         return self.eos
-        
-        
+
+
     def Eos_volume(self,temp,pres,p0):
 
         result=getattr(zEquation,self.eos)(temp,pres,p0,args=("V",self.pc,self.tc))
-        
+
         return result
 
     def Eost(self,pres,volume,p0):
@@ -273,37 +273,37 @@ class zProperty():
             #function Problem
             eosphivfunction=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
             #Very Important Lambda Function for Fugacity Calc
-                    
+
             eosintegration=integrate.romberg(eosphivfunction,p0,pres);
             lnphico=1/8.3145/temp*eosintegration-math.log(pres/p0)
             phiv=math.exp(lnphico)
             fugacity=phiv*pres
             result=(phiv,fugacity,pres)
-            
-        
+
+
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS Phiv",self.eosset[0],error))
             result=(None,None,None)
 
         return result
-            
-            
+
+
     def Phil(self,temp,pres,p0=100000,route="1"):
-        
-        psat=Pressure_of_saturation(self,temp,pres,p0=100000)                
-        #print psat   
-        #计算气体饱和蒸汽压        
+
+        psat=Pressure_of_saturation(self,temp,pres,p0=100000)
+        #print psat
+        #计算气体饱和蒸汽压
 
         fugsat=self.Phiv(temp,psat,p0,eos,"1")[1]
         #计算气体逸度的route 如何动态化
-        
+
         #逸度系数龙贝格积分
         try:
             eosphilfunction=lambda x: self.Liquid_volume(temp,pres,p0=100000)
             eosintegration=integrate.romberg(eosphilfunction,psat,pres);
             #print ("Pressure Integeration:",eosintegration)
             poynting=math.exp(1/8.3145/temp*eosintegration)
-            #Poynting is in separate Sub_philpc            
+            #Poynting is in separate Sub_philpc
             phil=poynting*fugsat/pres
             fugacity=phil*pres
             result=(phil,fugacity,pres,poynting)
@@ -313,14 +313,14 @@ class zProperty():
             result=(None,None,None)
 
         return result
-          
+
 
     def Hv(self,temp,pres,t0=298.15,p0=100000,route="1"):
         #Parameter includes a t0
         try:
             hbase=self.dhform
             htemp=integrate.romberg(hfunction,t0,temp)
-            hdeparture=self.Sub_dhv(temp,pres,t0,p0,"1")           
+            hdeparture=self.Sub_dhv(temp,pres,t0,p0,"1")
         #No Pressure Effect,p0 left
             result=hbase+htemp+hpres+hdeparture
 
@@ -337,7 +337,7 @@ class zProperty():
 
 
 
-        
+
     def Gv(self,material,temp,pres,p0=100000,eos="RK"):
         #gbase=material.dgform
         #gfunction=
@@ -384,14 +384,14 @@ class zProperty():
             eosphilfunction=lambda x: self.Liquid_volume(temp,x,p0=100000)
             eosintegration=integrate.romberg(eosphilfunction,psat,pres);
             #print ("Pressure Integeration:",eosintegration)
-            poynting=math.exp(1/8.3145/temp*eosintegration)            
+            poynting=math.exp(1/8.3145/temp*eosintegration)
 
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
             poynting=1
 
         return poynting
-        
+
 
     def Sub_dhv(self,temp,pres,t0=298.15,p0=100000,route="1",step=10000):
         #No default p0 now! For integration
@@ -411,7 +411,7 @@ class zProperty():
             eosintegrate=0
             #错误时反馈eosintegrate=0!
 
-        #When the analytical result of EOS is clearly understood 
+        #When the analytical result of EOS is clearly understood
         '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
         eosb=0.08664*8.3145*material.tc/material.pc
         eosv=material.Vvolume(temp,pres,eos)
@@ -423,8 +423,8 @@ class zProperty():
         return dhv'''
 
         return eosintegrate
-         
-      
+
+
 
     def Sub_dsv(self,material,temp,pres,eos="RK"):
         eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
@@ -449,7 +449,7 @@ class zProperty():
 
 
 
-    
+
 class zEquation():
 
     def __init__(self):
@@ -459,21 +459,21 @@ class zEquation():
     def VSPOLY():
         pass
 
-    def DNSDIP(self,para,temp,pres,p0=100000):  
+    def DNSDIP(self,para,temp,pres,p0=100000):
         if len(para)==8:
             result=self.Dippr(para,temp,pres,p0,"100")
         else:
             print("%s equation is ilegal" % para[0])
             result=None
         return result
-        
+
     def VSPO():
         pass
 
     def DNSTMLPO():
         pass
 
-     #"LIQUIDV":("RKTZRA","DNLDIP","DNLPDS","RACKET","VLPO","DNLTMLPO","DNLEXSAT","DNLRACK","DNLCOSTD"),   
+     #"LIQUIDV":("RKTZRA","DNLDIP","DNLPDS","RACKET","VLPO","DNLTMLPO","DNLEXSAT","DNLRACK","DNLCOSTD"),
      # Liquid Volume Method
 
     def RKTZRA():
@@ -485,7 +485,7 @@ class zEquation():
             result=self.Dippr(para,temp,pres,p0,"105")
         else:
             print("%s equation is ilegal" % para[0])
-            result=None 
+            result=None
         #!!Water is Special
         return result
 
@@ -520,7 +520,7 @@ class zEquation():
         else:
             print("%s equation is ilegal" % para[0])
             result=None
-             
+
         return result
 
     def CPLXP1():
@@ -575,8 +575,8 @@ class zEquation():
             result=self.Dippr(para,temp,pres,p0,"106")
         else:
             print("%s equation is ilegal" % para[0])
-            result=None 
-       
+            result=None
+
         return result
 
     def DHVLDS():
@@ -609,7 +609,7 @@ class zEquation():
 
     def CPSXP2():
         pass
-    
+
     def CPSXP7():
         pass
 
@@ -648,16 +648,16 @@ class zEquation():
     def CPLTDECS():
         pass
 
-  
+
     #"GASCP":("CPIG","CPIGDP","CPIXP1","CPIXP2", "CPIXP3","CPIGDS","CPIAPI","CPIGPO","CPITMLPO","CPIALEE")
 
     def CPIG(self,para,temp,pres,p0=100000):
-    
+
         if len(para)==12:
             if temp>=para[7]:
                 result=para[1]+ para[2]*temp+para[3]*pow(temp,2)+para[4]*pow(temp,3)+para[5]*pow(temp,4)+para[6]*pow(temp,5)
             else:
-                result=para[9]+para[10]*pow(temp,para[11])      
+                result=para[9]+para[10]*pow(temp,para[11])
         else:
             print("%s equation is ilegal" % para[0])
             result=None
@@ -703,7 +703,7 @@ class zEquation():
     def VIRIAL():
         pass
 
-         
+
     # All DIPPR
 
     def Dippr(self,para,temp,pres,p0=100000,tag="100"):
@@ -713,7 +713,7 @@ class zEquation():
         tr=temp/tc
         tx=1-tr
         #As the t defination is ASPEN
-              
+
         if tag=="100":
             dippr=para[1]+para[2]*temp+para[3]*pow(temp,2)+para[4]*pow(temp,3)+para[5]*pow(temp,4)
 
@@ -741,7 +741,7 @@ class zEquation():
 
         elif tag=="114":
             dippr=para[1]*para[1]/tx+para[2]-2*para[1]*para[3]*tx-para[1]*para[4]*tx*tx-para[3]*para[3]*pow(tx,3)/3-para[3]*para[4]/2*pow(tx,4)-para[4]*para[4]*pow(tx,5)/5
-        
+
         elif tag=="115":
             dippr=math.exp(para[1]+para[2]/temp+para[3]*math.log(temp)+para[4]*temp*temp+para[5]/temp/temp)
 
@@ -771,7 +771,7 @@ class zEquation():
         #a*b*x**b/(x*(c/x + d/x**2 + 1)) + a*x**b*(c/x**2 + 2*d/x**3)/(c/x + d/x**2 + 1)**2
         #dippr=para[1]*pow(temp,para[2])/(1+para[3]/temp+para[4]/temp/temp）
             pass
-            
+
         elif tag=="103":
             dippr=para[1]+para[2]*math.exp(-para[3]/pow(temp,para[4]))
 
@@ -784,7 +784,7 @@ class zEquation():
         #a*b**(-(1 - x/c)**d - 1)*d*(1 - x/c)**d*log(b)/(c*(1 - x/c))先后顺序较为混乱
         #Dippr系数2必须为正数
             dipprdiff=self.dippr(material,temp,para,"105")*math.log(para[2])*(para[4]/para[3])\
-            *(1-temp/para[3])**(para[4]-1)                                                                                                    
+            *(1-temp/para[3])**(para[4]-1)
 
         elif tag=="106":
             #Only for Dippr calc
@@ -795,7 +795,7 @@ class zEquation():
 
         elif tag=="114":
             dippr=para[1]*para[1]/tx+para[2]-2*para[1]*para[3]*tx-para[1]*para[4]*tx*tx-para[3]*para[3]*pow(tx,3)/3-para[3]*para[4]/2*pow(tx,4)-para[4]*para[4]*pow(tx,5)/5
-        
+
         elif tag=="115":
             dippr=math.exp(para[1]+para[2]/temp+para[3]*math.log(temp)+para[4]*temp*temp+para[5]/temp/temp)
 
@@ -810,8 +810,8 @@ class zEquation():
             print "Costom DIPPR equation"
             pass
 
-        return dipprdiff     
-   
+        return dipprdiff
+
     #Below are all EOSes
 
         def RK(self,para,temp,pres,volume,category):
@@ -819,9 +819,9 @@ class zEquation():
             eosa=0.42748*8.3145*8.3145*pow(para[1],2.5)/para[2]
             eosb=0.08664*8.3145*para[1]/para[2]
             if category=="V":
-                
+
                 eospara=[1,-8.3145*temp/pres,eosa/pres/math.sqrt(temp)-eosb*8.3145*temp/pres-eosb*eosb,-eosa/math.sqrt(temp)*eosb/pres]
-                try:                    
+                try:
                     #RK Equation
                     eosv=numpy.poly1d(eospara)
                     eosr=eosv.r
@@ -836,16 +836,16 @@ class zEquation():
 
             elif category=="P":
 
-                result=8.3145*temp/(volume-eosb)-eosa/(math.sqrt(temp)*volume*(volume-eosb)) 
+                result=8.3145*temp/(volume-eosb)-eosa/(math.sqrt(temp)*volume*(volume-eosb))
 
-            elif category=="T": 
+            elif category=="T":
 
                 eospara=[8.314/(volume-eosb),0,-pres,eosa/(volume+b)/volume]
                 tstandard=pres*volume/8.3145
                 try:
                     #RK Equation
                     eost=numpy.poly1d(eospara)
-                    eosr=eosv.r                    
+                    eosr=eosv.r
                     positvefilter=lambda x:(x-tstandard)>0
                     eosr=filter(positivefilter,eosr)
                     result1=sorted(eosr)[0]
@@ -856,143 +856,17 @@ class zEquation():
 
                     if (result1+result2)/2>tstandard:
                         result=result2
-                    else:   
+                    else:
                         result=result1
 
                 except Exception,error:
                     print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
-                    result=None       
+                    result=None
             else:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("RK-Input Mistake",category,error))
                 result=None
             return result
             #RK Result
-
-            
-class zThermo():
-    pass
-
-
-#    
-class zPureThermo(z):
-    def __init__(self,name,bpset):
-        #self.chemical=ztdeproperty
-        pass
-
-    def Phiv(self,material,temp,pres,p0=100000,eos="RK"):
-        #fugacity not chinese
-        eosphivfunction=lambda x: material.Vvolume(temp,x,eos)
-        eosintegration=integrate.romberg(eosphivfunction,p0,pres);
-        #romberg
-        lnphico=1/8.3145/temp*eosintegration-math.log(pres/p0)
-        phiv=math.exp(lnphico)
-        #phiv=[math.exp(lnphico),math.exp(lnphico)*pres]
-        #!!phiv是压力还是系数
-        return phiv
-
-    def Phil(self,material,temp,pres,p0=100000,eos="RK"):
-        #!Poynting未调好
-        psat=material.Lsatp(temp,pres)
-        print psat
-        #气体逸度系数
-        #计算气体饱和蒸汽压方法待定
-        phiv=self.Phiv(material,temp,psat,p0,eos)
-        #逸度系数龙贝格积分
-        eosphilfunction=lambda x: material.Lvolume(temp,x,"ZWATER")
-        eosintegration=integrate.romberg(eosphilfunction,psat,pres);
-        print ("Pressure Integeration:",eosintegration)
-        poynting=math.exp(1/8.3145/temp*eosintegration)
-        print("Poynting:",poynting)
-        #!Poynting has a problem!!
-
-        phil=poynting*phiv
-        return phil
-
-    def Hl(self):
-        pass
-
-    def Hv(self,material,temp,pres,t0=298.15,p0=100000,eos="RK"):
-
-        hbase=material.dhform
-        hfunction=lambda x: material.Vcp(x)
-        htemp=integrate.romberg(hfunction,t0,temp)
-        hpres=0
-        #No Pressure Effect,p0 left
-        hdeparture=self.Sub_dhv(material,temp,pres,eos)
-        hv=hbase+htemp+hpres+hdeparture
-        return hv
-
-    def Gv(self,material,temp,pres,p0=100000,eos="RK"):
-        #gbase=material.dgform
-        #gfunction=
-        pass
-
-    def Gl(self):
-        pass
-
-    def Sv(self,material,temp,pres,t0=298.15,p0=100000,eos="RK"):
-        sbase=material.dsform
-        sfunction=lambda x: material.Vcp(x)/x
-        stemp=integrate.romberg(sfunction,t0,temp)
-        spres=-8.3145*temp*math.log(pres/p0)
-        sdeparture=self.Sub_dsv(material,temp,pres,eos)
-        sv=sbase+stemp+spres+sdeparture
-        return sv
-
-    def Sl(self):
-        pass
-
-    def Vv(self):
-        pass
-
-    def Vl(self):
-        pass
-
-    def Phis(self):
-        pass
-
-    def Hs(self):
-        pass
-
-    def Gs(self):
-        pass
-
-    def Ss(self):
-        pass
-
-    def Vs(self):
-        pass
-# 计算中间属性
-    def Sub_dhv(self,material,temp,pres,eos="RK"):
-        #Departure Enthalpy
-
-        eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dhvfactor=eosZ-1-1.5*eosA*eosA/eosB*math.log(1+eosB*pres/eosZ)
-        dhv=8.3145*temp*dhvfactor
-        return dhv
-
-    def Sub_dsv(self,material,temp,pres,eos="RK"):
-        eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
-        dsv=dsvfactor*8.3145
-        return dsv
-
-    def Sub_dgV(self,material,temp,pres,eos="RK"):
-        #Not yet
-        pass
-
-
-
 
 
 
@@ -1017,4 +891,5 @@ if __name__=="__main__":
     print a.Gas_cp(373.15,80000)
     print a.Heat_of_vaporization(373.15,100000)
     print a.Pressure_of_saturation(373.15,100000)
+
 
