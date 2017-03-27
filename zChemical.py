@@ -270,7 +270,8 @@ class zProperty():
         equation=zEquation()
 
         try:
-            eosphivfunction=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,"V")
+            #function Problem
+            eosphivfunction=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
             #Very Important Lambda Function for Fugacity Calc
                     
             eosintegration=integrate.romberg(eosphivfunction,p0,pres);
@@ -307,7 +308,7 @@ class zProperty():
             fugacity=phil*pres
             result=(phil,fugacity,pres,poynting)
 
-         except Exception,error:
+        except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS Phil",self.eosset[0],error))
             result=(None,None,None)
 
@@ -385,25 +386,26 @@ class zProperty():
             #print ("Pressure Integeration:",eosintegration)
             poynting=math.exp(1/8.3145/temp*eosintegration)            
 
-         except Exception,error:
+        except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
             poynting=1
 
-         return poynting
+        return poynting
         
 
-    def Sub_dhv(self,temp,pres,t0=298.15,p0,route="1",step=10000):
+    def Sub_dhv(self,temp,pres,t0=298.15,p0=100000,route="1",step=10000):
         #No default p0 now! For integration
         #Departure Enthalpy,extra parameter p0
+        #！Turns out to be a must p0
 
         equation=zEquation()
         try:
-            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,"V")
+            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
             eosdiff=lambda y:eosv(y)-temp*diff.derivative(eosv,y,abs(pres-p0)/100)
             #数值微分方法,目前只设置了微分步长
             eosintegrate=integrate.romberg(eosphilfunction,psat,pres);
             #微分后积分
-         except Exception,error:
+        except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
 
             eosintegrate=0
@@ -838,9 +840,9 @@ class zEquation():
 
             elif category=="T": 
 
-               eospara=[8.314/(volume-eosb),0,-pres,eosa/(volume+b)/volume]
-               tstandard=pres*volume/8.3145
-               try:                    
+                eospara=[8.314/(volume-eosb),0,-pres,eosa/(volume+b)/volume]
+                tstandard=pres*volume/8.3145
+                try:
                     #RK Equation
                     eost=numpy.poly1d(eospara)
                     eosr=eosv.r                    
@@ -860,9 +862,9 @@ class zEquation():
                 except Exception,error:
                     print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
                     result=None       
-            else
+            else:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("RK-Input Mistake",category,error))
-                    result=None              
+                result=None
             return result
             #RK Result
 
@@ -882,7 +884,7 @@ class zPureThermo(z):
         eosphivfunction=lambda x: material.Vvolume(temp,x,eos)
         eosintegration=integrate.romberg(eosphivfunction,p0,pres);
         #romberg
-        lnphico=1/8.3145/temp*eosintegration-math.log(float(pres)/float(p0))
+        lnphico=1/8.3145/temp*eosintegration-math.log(pres/p0)
         phiv=math.exp(lnphico)
         #phiv=[math.exp(lnphico),math.exp(lnphico)*pres]
         #!!phiv是压力还是系数
