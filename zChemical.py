@@ -184,11 +184,13 @@ class zProperty():
     #As a demo
         equation=zEquation()
         try:
+            #! Now give a bar result!
             result=getattr(equation,self.tpdata["POV"][0])(self.tpdata["POV"],temp,pres,p0)
+            result=100000*result
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("Antoine Like",self.tpdata["POV"][0],error))
             result=None
-        return result
+
         return result
 
     def Heat_of_vaporization(self,temp,pres,p0=100000):
@@ -238,7 +240,8 @@ class zProperty():
     def Eos_set(self,eos="RK"):
         if eos in self._eoslist:
             self.eos=eos
-            self.eosset=(eos,self.tc,self.pc,self.vc,self.omega)
+            #!Database Problem
+            self.eosset=(eos,self.tc+273.15,self.pc*100000,self.vc,self.omega)
             #Is this enough for EOS tuple?
         else:
             self.eos="RK"
@@ -263,34 +266,422 @@ class zProperty():
 
 #20170323 Pure Thermo integrated
 
-    def Phiv(self,temp,pres,p0=100000,route="1"):
+    def Phiv(self,temp,pres,p0=100000):
     #Pure Thermo has a lot of method
     #This is not similar as T-dep property
+    #Phiv has no route definition
 
         equation=zEquation()
 
         try:
             #function Problem
-            eosphivfunction=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
+            eosphivfunction=lambda x:self.Vv(temp,pres,p0)
             #Very Important Lambda Function for Fugacity Calc
 
             eosintegration=integrate.romberg(eosphivfunction,p0,pres);
             lnphico=1/8.3145/temp*eosintegration-math.log(pres/p0)
-            phiv=math.exp(lnphico)
-            fugacity=phiv*pres
-            result=(phiv,fugacity,pres)
-
+            #print("Phiv",lnphico)
+            result=math.exp(lnphico)
 
         except Exception,error:
             print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS Phiv",self.eosset[0],error))
-            result=(None,None,None)
+            result=1
+
+            #phiv default is 1
 
         return result
 
 
-    def Phil(self,temp,pres,p0=100000,route="1"):
+    def Phil(self,temp,pres,p0=100000,route="2"):
+        #4 routes defined in ASPEN
 
-        psat=Pressure_of_saturation(self,temp,pres,p0=100000)
+        psat=self.Pressure_of_saturation(temp,pres,p0=100000)
+        eosphiv=self.Phiv(temp,psat,p0)
+
+        try:
+            if route=="1":
+                #Custom defined Phil Method
+                pass
+
+            elif route=="2":
+                poynting=self.Sub_philpc(temp,psat,pres)
+
+            elif route=="3":
+                poynting=1
+
+            elif route=="4":
+                #!For water
+                pass
+
+            else:
+                print("Default Poynting!")
+                poynting=1
+
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS Phil",self.eosset[0],error))
+            poynting=1
+
+        #print("Phil Test %s %s %s" % (poynting,eosphiv,psat))
+        result=poynting*eosphiv*psat/pres
+
+
+        return result
+
+
+    def Hv(self,temp,pres,t0=298.15,p0=100000,route="2",subroute="2"):
+
+        hbase=self.dhform
+        eoshfunction=lambda x: self.Gas_cp(x,pres,p0=100000)
+        htemp=integrate.romberg(eoshfunction,t0,temp)
+
+        try:
+            if route=="1":
+                pass
+
+            elif route=="2":
+                hdeparture=self.Sub_dhv(temp,pres,t0,p0,subroute)
+
+            else:
+                hdeparture=0
+                print("Default Hdeparture!")
+
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS HV",route,error))
+            hdeparture=0
+
+        result=hbase+htemp+hdeparture
+
+        return result
+
+
+    def Hl(self,temp,pres,t0=298.15,p0=100000,route="2",subroute="1"):
+
+        hbase=self.dhform
+        eoshfunction=lambda x: self.Gas_cp(x,pres,p0=100000)
+        htemp=integrate.romberg(eoshfunction,t0,temp)
+
+        try:
+
+            if route=="1":
+                pass
+
+            elif route=="2":
+               hdeparture=self.Sub_dhl(temp,pres,t0,p0,subroute)
+
+            else:
+               hdeparture=0
+
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS HL",self.eosset[0],error))
+            hdeparture=0
+
+        result=hbase+htemp+hdeparture
+
+        return result
+
+
+    def Gv(self,temp,pres,t0=298.15,p0=100000,route="2",subroute="2"):
+        if route=="1":
+                pass
+
+        elif route=="2":
+
+            gbase=self.dgform
+            sbase=self.dsform
+            cp=lambda x:self.Gas_cp(x,p0,p0)
+            cpt=lambda y:self.Gas_cp(x,p0,p0)/x
+            deltaH1=integrate.romberg(cp,t0,temp)
+            deltaS1=integrate.romberg(cpt,t0,temp)
+            gideal=gbase+deltaH1+temp*(deltaS1+sbase)-t0*sbase
+
+            gdeparture=self.Sub_dgv(temp,pres,t0,p0,subroute)
+
+        result=gideal+gdeparture
+
+        return result
+
+    def Gl(self,temp,pres,t0=298.15,p0=100000,route="2",subroute="2"):
+        if route=="1":
+                pass
+
+        elif route=="2":
+
+            gbase=self.dgform
+            sbase=self.dsform
+            cp=lambda x:self.Gas_cp(x,p0,p0)
+            cpt=lambda y:self.Gas_cp(x,p0,p0)/x
+            deltaH1=integrate.romberg(cp,t0,temp)
+            deltaS1=integrate.romberg(cpt,t0,temp)
+            gideal=gbase+deltaH1+temp*(deltaS1+sbase)-t0*sbase
+
+            gdeparture=self.Sub_dgl(temp,pres,t0,p0,subroute)
+
+        result=gideal+gdeparture
+
+        return result
+
+
+    def Sv(self,temp,pres,t0=298.15,p0=100000,route="2"):
+        sbase=self.dsform
+        sfunction=lambda x: Gas_cp(self,x,pres,p0=100000)/x
+        stemp=integrate.romberg(sfunction,t0,temp)
+        spres=8.3145*temp*math.log(pres/p0)
+        sdeparture=self.Sub_dsv(temp,pres,t0=298.15,p0=100000,route="2")
+        sv=sbase+stemp+spres+sdeparture
+        return sv
+
+    def Sl(self,temp,pres,t0=298.15,p0=100000,route="2"):
+        try:
+            Sbase=self.dhform
+            eossfunction=lambda x: self.Gas_cp(x,pres,p0=100000)/x
+            stemp=integrate.romberg(eossfunction,t0,temp)
+            spres=8.3145*temp*math.log(pres/p0)
+            sdeparture=self.Sub_dsv(temp,pres,t0=298.15,p0=100000,route="2")
+        #No Pressure Effect,p0 left
+            result=sbase+stemp+spres+sdeparture
+
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("SL",self.eosset[0],error))
+            result= None
+
+        return result
+
+
+    def Vv(self,temp,pres,t0=298.15,p0=100000):
+        #No route definition for Vv
+        equation=zEquation()
+        try:
+            result=getattr(equation,self.eosset[0])(self.eosset,temp,pres,0,tag="V")
+            #print("Vv Debug %s %s %s" %(self.eosset,result,8.3145*temp/pres))
+        except Exception, error:
+            #print ("KeyWord:%s + %s\nMistake:%s\n"%("Vv",self.eosset[0],error))
+            result= 0
+
+        return result
+
+
+
+    def Vl(self,temp,pres,p0=100000):
+        #No rout definition for Vl
+        result=self.Liquid_volume(temp,pres,p0=100000)
+
+        return result
+
+
+    #Solid is not included yet
+    def Phis(self):
+        pass
+
+    def Hs(self):
+        pass
+
+    def Gs(self):
+        pass
+
+    def Ss(self):
+        pass
+
+    def Vs(self):
+        pass
+
+
+# 计算中间属性
+    def Sub_philpc(self,temp,p1,p2):
+        try:
+            eosphilfunction=lambda x: self.Liquid_volume(temp,x,p0=100000)
+            eosintegration=integrate.romberg(eosphilfunction,p1,p2);
+
+            #print ("Pressure Integeration:",1/8.3145/temp*eosintegration/p2)
+            #!Poynting Definition
+            result=math.exp(1/8.3145/temp*eosintegration/p2)
+
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
+            result=1
+
+        return result
+
+
+    def Sub_dhv(self,temp,pres,t0=298.15,p0=100000,route="2",step=10000):
+        #3 routes, 2 are same as ASPEN, 3 is programmed as Textbook
+
+        equation=zEquation()
+
+        if route=="1":
+            if self.eosset[0]=="RK":
+                eosa=0.42748*8.3145*8.3145*pow(self.tc,2.5)/self.pc
+                eosb=0.08664*8.3145*self.tc/self.pc
+                eosv=self.Vv(temp,pres,p0)
+                eosZ=pres*eosv/8.3145/temp
+                eosB=eosb*eosZ/pres/eosv
+                eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
+                dhvfactor=eosZ-1-1.5*eosA*eosA/eosB*math.log(1+eosB*pres/eosZ)
+                dhv=8.3145*temp*dhvfactor
+
+            elif self.eosset[0]=="PR":
+                pass
+
+            elif self.eosset[0]=="SRK":
+                pass
+
+
+        elif route=="2":
+            eosphiv=lambda y:self.Phiv(y,pres,p0)
+            print("EOS PHIV",eosphiv(200))
+            eosdiff=diff.derivative(eosphiv,temp,abs(temp-t0)/step)
+            print(eosdiff,"DHV Test")
+            dhv=-8.3145*temp*temp*eosdiff
+
+        elif route=="3":
+
+            try:
+                eosv=lambda x:self.Vv(temp,x,p0)
+                eosdiff=lambda y:eosv(y)-temp*diff.derivative(eosv,y,abs(pres-p0)/step)
+                dhv=integrate.romberg(eosdiff,psat,pres);
+
+            except Exception,error:
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHV General Method",route,error))
+                dhv=0
+        else:
+            dhv=0
+            print("DHV Default")
+
+        result=dhv
+
+        return result
+
+
+
+
+    def Sub_dhl(self,temp,pres,t0=298.15,p0=100000,route="1",step=1000):
+        #No default p0 now! For integration
+        #Departure Enthalpy,extra parameter p0
+        #！Turns out to be a must p0
+        #Route change to int?
+
+        equation=zEquation()
+        if route=="1":
+            try:
+                #Use CP and vaporization enthalpy to calculate
+                hvap=self.Heat_of_vaporization(temp,pres,p0)
+                hlfunction=lambda x:self.Liquid_cp(x,pres,p0)
+                hlcp1=integrate.romberg(hlfunction,psat,pres);
+                #Liquid Volume Rectification,follow ASPEN use a 0 here
+                hlcp2=0
+                result=hvap+hlcp1+hlcp2
+
+            except Exception,error:
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Cp-L method",error))
+
+                result=0
+
+        elif route=="2":
+            try:
+                #partial ln(phi)/ partial T
+                eosphil=lambda x:self.Phil(x,pres,p0=100000,route="1")
+                eosdiff=diff.derivative(eosv,temp,abs(temp-t0)/step)
+
+                #数值微分方法,目前只设置了微分步长
+                eosresult=8.3145*temp*temp*eosdiff
+                #微分后积分
+            except Exception,error:
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Phil Mehtod",error))
+
+                result=0
+
+        elif route=="3":
+            #ASPEN has 3-5 method to handle the situation
+            #事实上1与3目前思路相同
+            pass
+        elif route=="4":
+            pass
+
+        elif route=="5":
+            pass
+
+        elif route=="6":
+            #!自定义方法解决液相压力问题
+            #Pressure Rectification in Liuqid Phase
+            try:
+                #Use CP and vaporization enthalpy to calculate
+                hvap=self.Heat_of_vaporization(temp,pres,p0)
+                hlfunction=lambda x:self.Liquid_cp(x,pres,p0)
+                hlcp1=integrate.romberg(hlfunction,psat,pres);
+                #Liquid Volume Rectification,follow ASPEN use a 0 here
+                eosvi=lambda y:self.Vl(temp,y,p0)
+                hlcp2=integrate.romberg(eosvi,psat,pres)
+                result=hvap+hlcp1+hlcp2
+
+            except Exception,error:
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Liquid Pressure Rectification",error))
+
+                result=0
+
+        else:
+            result=0
+            print("%s has dhl problem" % self.name)
+
+        return result
+
+
+    def Sub_dsv(temp,pres,t0=298.15,p0=100000,route="2"):
+        equation=zEquation()
+        try:
+            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
+            eosdiff=lambda y:diff.derivative(eosv,y,abs(pres-p0)/step)-8.314/y
+            #数值微分方法,目前只设置了微分步长
+            eosintegrate=integrate.romberg(eosdiff,p0,pres);
+            #微分后积分
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("DSV",self.eosset[0],error))
+
+            eosintegrate=0
+
+            #错误时反馈eosintegrate=0!
+
+        #A Specific method for RK
+        '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
+        eosb=0.08664*8.3145*material.tc/material.pc
+        eosv=material.Vvolume(temp,pres,eos)
+        eosZ=pres*eosv/8.3145/temp
+        eosB=eosb*eosZ/pres/eosv
+        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
+        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
+        dsv=dsvfactor*8.3145
+        return dsv'''
+
+        return eosintegrate
+
+    def Sub_dsl(temp,pres,t0=298.15,p0=100000,route="2"):
+        equation=zEquation()
+        psat=self.Pressure_of_saturation(temp,pres,p0=100000)
+        try:
+            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
+            eosdiff=lambda y:diff.derivative(eosv,y,abs(pres-p0)/step)-8.314/y
+            #数值微分方法,目前只设置了微分步长
+            eosintegrate=integrate.romberg(eosdiff,p0,pres);
+            #微分后积分
+        except Exception,error:
+            print ("KeyWord:%s + %s\nMistake:%s\n"%("DSV",self.eosset[0],error))
+
+            eosintegrate=0
+
+            #错误时反馈eosintegrate=0!
+
+        #A Specific method for RK
+        '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
+        eosb=0.08664*8.3145*material.tc/material.pc
+        eosv=material.Vvolume(temp,pres,eos)
+        eosZ=pres*eosv/8.3145/temp
+        eosB=eosb*eosZ/pres/eosv
+        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
+        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
+        dsv=dsvfactor*8.3145
+        return dsv'''
+
+
+
+        psat=self.Pressure_of_saturation(temp,pres,p0=100000)
         #print psat
         #计算气体饱和蒸汽压
 
@@ -314,135 +705,36 @@ class zProperty():
 
         return result
 
-
-    def Hv(self,temp,pres,t0=298.15,p0=100000,route="1"):
-        #Parameter includes a t0
-        try:
-            hbase=self.dhform
-            htemp=integrate.romberg(hfunction,t0,temp)
-            hdeparture=self.Sub_dhv(temp,pres,t0,p0,"1")
-        #No Pressure Effect,p0 left
-            result=hbase+htemp+hpres+hdeparture
-
-        except Exception,error:
-            print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS HV",self.eosset[0],error))
-            result= None
-
-        return result
-
-    def Hl(self):
-        pass
-
-
-
-
-
-
-    def Gv(self,material,temp,pres,p0=100000,eos="RK"):
-        #gbase=material.dgform
-        #gfunction=
-        pass
-
-    def Gl(self):
-        pass
-
-    def Sv(self,material,temp,pres,t0=298.15,p0=100000,eos="RK"):
-        sbase=material.dsform
-        sfunction=lambda x: material.Vcp(x)/x
-        stemp=integrate.romberg(sfunction,t0,temp)
-        spres=-8.3145*temp*math.log(pres/p0)
-        sdeparture=self.Sub_dsv(material,temp,pres,eos)
-        sv=sbase+stemp+spres+sdeparture
-        return sv
-
-    def Sl(self):
-        pass
-
-    def Vv(self):
-        pass
-
-    def Vl(self):
-        pass
-
-    def Phis(self):
-        pass
-
-    def Hs(self):
-        pass
-
-    def Gs(self):
-        pass
-
-    def Ss(self):
-        pass
-
-    def Vs(self):
-        pass
-# 计算中间属性
-    def Sub_philpc(self,para,temp,pres,p0):
-        try:
-            eosphilfunction=lambda x: self.Liquid_volume(temp,x,p0=100000)
-            eosintegration=integrate.romberg(eosphilfunction,psat,pres);
-            #print ("Pressure Integeration:",eosintegration)
-            poynting=math.exp(1/8.3145/temp*eosintegration)
-
-        except Exception,error:
-            print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
-            poynting=1
-
-        return poynting
-
-
-    def Sub_dhv(self,temp,pres,t0=298.15,p0=100000,route="1",step=10000):
-        #No default p0 now! For integration
-        #Departure Enthalpy,extra parameter p0
-        #！Turns out to be a must p0
-
-        equation=zEquation()
-        try:
-            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,p0,volume=0,tag="V")
-            eosdiff=lambda y:eosv(y)-temp*diff.derivative(eosv,y,abs(pres-p0)/100)
-            #数值微分方法,目前只设置了微分步长
-            eosintegrate=integrate.romberg(eosphilfunction,psat,pres);
-            #微分后积分
-        except Exception,error:
-            print ("KeyWord:%s + %s\nMistake:%s\n"%("Poynting",self.eosset[0],error))
-
-            eosintegrate=0
-            #错误时反馈eosintegrate=0!
-
-        #When the analytical result of EOS is clearly understood
-        '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dhvfactor=eosZ-1-1.5*eosA*eosA/eosB*math.log(1+eosB*pres/eosZ)
-        dhv=8.3145*temp*dhvfactor
-        return dhv'''
-
         return eosintegrate
 
 
 
-    def Sub_dsv(self,material,temp,pres,eos="RK"):
-        eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
-        dsv=dsvfactor*8.3145
-        return dsv
-
-    def Sub_dgV(self,material,temp,pres,eos="RK"):
+    def Sub_dgv(temp,pres,t0=298.15,p0=100000,route="2"):
         #Not yet
-        pass
+        if route=="1":
+           pass
+
+        elif route=="2":
+           eosphiv=self.Phiv(temp,pres,p0)
+           result=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
 
 
+        return result
 
+
+    def Sub_dgl(temp,pres,t0=298.15,p0=100000,route="2"):
+        #!Use phil not 2,not imbeded
+        if route=="1":
+           pass
+
+        elif route=="2":
+           eosphiv=self.Phil(temp,pres,p0,"2")
+
+           result=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
+
+        elif route=="3":
+            pass
+        return result
 
 
 
@@ -456,6 +748,67 @@ class zEquation():
         pass
     #"SOLIDV":("VSPOLY","DNSDIP","VSPO","DNSTMLPO"),
     # Solid Volume Method
+
+    #Start with EOS
+    def RK(self,para,temp,pres,volume,tag="V"):
+
+            #RK para=["RK",tc,pc,omega] omega is not useful
+            eosa=0.42748*8.3145*8.3145*pow(para[1],2.5)/para[2]
+            eosb=0.08664*8.3145*para[1]/para[2]
+            if tag=="V":
+
+                eospara=[1,-8.3145*temp/pres,eosa/pres/math.sqrt(temp)-eosb*8.3145*temp/pres-eosb*eosb,-eosa/math.sqrt(temp)*eosb/pres]
+                try:
+                    #RK Equation
+                    eosv=numpy.poly1d(eospara)
+                    eosr=eosv.r
+
+                    #print("EOS Debug 1 %s" % eosr)
+                    vreal=lambda x:x>0
+                    eosr=filter(vreal,eosr)
+                    #print("EOS Debug 1 %s" % eosr)
+                    eosr=sorted(eosr)
+                    result=float(eosr[-1])
+                    #numpy的数据类型问题
+                except Exception,error:
+                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
+                    result=None
+
+            elif tag=="P":
+
+                result=8.3145*temp/(volume-eosb)-eosa/(math.sqrt(temp)*volume*(volume-eosb))
+
+            elif tag=="T":
+
+                eospara=[8.314/(volume-eosb),0,-pres,eosa/(volume+b)/volume]
+                tstandard=pres*volume/8.3145
+                try:
+                    #RK Equation
+                    eost=numpy.poly1d(eospara)
+                    eosr=eosv.r
+                    positvefilter=lambda x:(x-tstandard)>0
+                    eosr=filter(positivefilter,eosr)
+                    result1=sorted(eosr)[0]
+
+                    negativefilter=lambda x:(x-tstandard)<0
+                    eosr=filter(negativefilter,eosr)
+                    result2=sorted(eosr)[-1]
+
+                    if (result1+result2)/2>tstandard:
+                        result=result2
+                    else:
+                        result=result1
+
+                except Exception,error:
+                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
+                    result=None
+            else:
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("RK-Input Mistake",category,error))
+                result=None
+            return result
+            #RK Result
+
+
     def VSPOLY():
         pass
 
@@ -814,59 +1167,7 @@ class zEquation():
 
     #Below are all EOSes
 
-        def RK(self,para,temp,pres,volume,category):
-            #RK para=["RK",tc,pc,omega] omega is not useful
-            eosa=0.42748*8.3145*8.3145*pow(para[1],2.5)/para[2]
-            eosb=0.08664*8.3145*para[1]/para[2]
-            if category=="V":
 
-                eospara=[1,-8.3145*temp/pres,eosa/pres/math.sqrt(temp)-eosb*8.3145*temp/pres-eosb*eosb,-eosa/math.sqrt(temp)*eosb/pres]
-                try:
-                    #RK Equation
-                    eosv=numpy.poly1d(eospara)
-                    eosr=eosv.r
-                    vreal=lambda x:x>0
-                    eosr=filter(vreal,eosr)
-                    eosr=sorted(eosr)
-                    result=float(eosr[-1])
-                    #numpy的数据类型问题
-                except Exception,error:
-                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
-                    result=None
-
-            elif category=="P":
-
-                result=8.3145*temp/(volume-eosb)-eosa/(math.sqrt(temp)*volume*(volume-eosb))
-
-            elif category=="T":
-
-                eospara=[8.314/(volume-eosb),0,-pres,eosa/(volume+b)/volume]
-                tstandard=pres*volume/8.3145
-                try:
-                    #RK Equation
-                    eost=numpy.poly1d(eospara)
-                    eosr=eosv.r
-                    positvefilter=lambda x:(x-tstandard)>0
-                    eosr=filter(positivefilter,eosr)
-                    result1=sorted(eosr)[0]
-
-                    negativefilter=lambda x:(x-tstandard)<0
-                    eosr=filter(negativefilter,eosr)
-                    result2=sorted(eosr)[-1]
-
-                    if (result1+result2)/2>tstandard:
-                        result=result2
-                    else:
-                        result=result1
-
-                except Exception,error:
-                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
-                    result=None
-            else:
-                print ("KeyWord:%s + %s\nMistake:%s\n"%("RK-Input Mistake",category,error))
-                result=None
-            return result
-            #RK Result
 
 
 
@@ -892,4 +1193,8 @@ if __name__=="__main__":
     print a.Heat_of_vaporization(373.15,100000)
     print a.Pressure_of_saturation(373.15,100000)
 
-
+    a.Eos_set()
+    print "EOS Test"
+    print a.Phiv(400,110000)
+    print a.Phil(373.15,110000)
+    print a.Hv(373.15,50000)
