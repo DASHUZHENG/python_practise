@@ -1,5 +1,6 @@
 import xlrd
 import sqlite3
+import collections
 
 class zDatabase:
 
@@ -50,3 +51,15 @@ class zDatabase:
 
         return result
        
+    def new(self,database,table,prime,cat):
+
+        conn=sqlite3.connect(database)
+        cursor = conn.cursor()
+        cursor.execute('create table If Not Exists %s (%s %s primary key)' % (table,prime,cat))
+        '''if isinstance(args[1:],collections.Iterable):
+            for key in args[1:]:
+                    print key
+                    cursor.execute('alter table %s add column %s %s ' % (table,key,"\"TEXT\""))'''
+
+    def alter(self,database,table,key,cat):
+        pass
