@@ -335,7 +335,8 @@ class zProperty():
                 pass
 
             elif route=="2":
-                hdeparture=self.Sub_dhv(temp,pres,t0,p0,"2")
+                hdeparture=self.Sub_dhv(temp,pres,t0,1,"2")
+                #Hdeparture Start From 1 pa
 
             else:
                 hdeparture=0
@@ -512,7 +513,7 @@ class zProperty():
         equation=zEquation()
 
         if route=="1":
-
+            #!Specific Method
             if self.eosset[0]=="PR":
                 pass
 
@@ -521,14 +522,15 @@ class zProperty():
 
 
         elif route=="2":
+            #!ASPEN Default phiv to H method
             eosphiv=lambda y:math.log(self.Phiv(y,pres,p0))
-            eosdiff=diff.derivative(eosphiv,temp)#,abs(temp-t0)/step)
+            eosdiff=diff.derivative(eosphiv,temp,abs(temp-t0)/step)
             #print(eosdiff,"DHV Test")
             dhv=-8.3145*temp*temp*eosdiff
             dhv=dhv*1000
             
         elif route=="3":
-            #!Problem,partial pressure
+            #!Self Programmed Numeric Integration
             dhvint=0
             plength=(pres-p0)/100
             pcomb=range(p0,pres,plength)
@@ -564,16 +566,33 @@ class zProperty():
         #Route change to int?
 
         equation=zEquation()
+        
+
         if route=="1":
             try:
+                eoshfunction=lambda x: self.Gas_cp(x,pres,p0=100000)
+                
+                htempneg=integrate.romberg(eoshfunction,temp,t0)
+                
+                #Negative Ideal Gass
+                
+                p0sat=self.Pressure_of_saturation(t0,pres,p0=100000)
+                
+                hdepartv=self.Sub_dhv(t0,p0sat,route="2")
+                #Neglect this part of enthalpy
+                
                 #Use CP and vaporization enthalpy to calculate
-                hvap=self.Heat_of_vaporization(temp,pres,p0)
-                hlfunction=lambda x:self.Liquid_cp(x,pres,p0)
-                hlcp1=integrate.romberg(hlfunction,psat,pres);
+                hvap=-self.Heat_of_vaporization(t0,p0sat)
+                
+                hlfunction=lambda x:self.Liquid_cp(x,pres)
+                
+                hlcp1=integrate.romberg(hlfunction,t0,temp);
                 #Liquid Volume Rectification,follow ASPEN use a 0 here
                 hlcp2=0
-                result=hvap+hlcp1+hlcp2
-
+                
+                result=htempneg+hdepartv+hvap+hlcp1+hlcp2
+                #print(htempneg,hdepartv,hvap,hlcp1,hlcp2)
+                
             except Exception,error:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Cp-L method",error))
 
@@ -582,11 +601,12 @@ class zProperty():
         elif route=="2":
             try:
                 #partial ln(phi)/ partial T
-                eosphil=lambda x:self.Phil(x,pres,p0=100000,route="1")
-                eosdiff=diff.derivative(eosv,temp,abs(temp-t0)/step)
-
+                eosphil=lambda y:math.log(self.Phil(y,pres,p0))
+                eosdiff=diff.derivative(eosphil,temp)
+                #print eosphil(100)
                 #数值微分方法,目前只设置了微分步长
-                eosresult=8.3145*temp*temp*eosdiff
+                eoshl=-8.3145*temp*temp*eosdiff
+                result=eoshl*1000
                 #微分后积分
             except Exception,error:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Phil Mehtod",error))
@@ -604,20 +624,33 @@ class zProperty():
             pass
 
         elif route=="6":
-            #!自定义方法解决液相压力问题
-            #Pressure Rectification in Liuqid Phase
             try:
+                eoshfunction=lambda x: self.Gas_cp(x,pres,p0=100000)
+                
+                htempneg=integrate.romberg(eoshfunction,temp,t0)
+                
+                #Negative Ideal Gass
+                
+                p0sat=self.Pressure_of_saturation(t0,pres,p0=100000)
+                
+                hdepartv=self.Sub_dhv(t0,p0sat,route="2")
+                #Neglect this part of enthalpy
+                
                 #Use CP and vaporization enthalpy to calculate
-                hvap=self.Heat_of_vaporization(temp,pres,p0)
-                hlfunction=lambda x:self.Liquid_cp(x,pres,p0)
-                hlcp1=integrate.romberg(hlfunction,psat,pres);
+                hvap=-self.Heat_of_vaporization(t0,p0sat)
+                
+                hlfunction=lambda x:self.Liquid_cp(x,pres)
+                
+                hlcp1=integrate.romberg(hlfunction,t0,temp);
                 #Liquid Volume Rectification,follow ASPEN use a 0 here
-                eosvi=lambda y:self.Vl(temp,y,p0)
-                hlcp2=integrate.romberg(eosvi,psat,pres)
-                result=hvap+hlcp1+hlcp2
-
+                
+                hlfunction=lambda x:self.Vl(temp,x)
+                hlcp2=integrate.romberg(hlfunction,p0sat,pres)
+                result=htempneg+hdepartv+hvap+hlcp1+hlcp2
+                print(htempneg,hdepartv,hvap,hlcp1,hlcp2)
+                
             except Exception,error:
-                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Liquid Pressure Rectification",error))
+                print ("KeyWord:%s + %s\nMistake:%s\n"%("DHL","Cp-L method",error))
 
                 result=0
 
@@ -628,7 +661,7 @@ class zProperty():
         return result
 
 
-    def Sub_dsv(self,temp,pres,t0=298.15,p0=100000,route="3"):#!NOW EDITING!!!
+    def Sub_dsv(self,temp,pres,t0=298.15,p0=100000,route="3",step=1000):#!NOW EDITING!!!
         equation=zEquation()
 
         if route=="1":
@@ -637,122 +670,90 @@ class zProperty():
         elif route=="2":
             try:
                 gdiff=lambda x:self.Sub_dgv(x,pres,t0,p0,"2")
-                eosdiff=lambda y:diff.derivative(eosv,y,abs(pres-p0)/step)-8.314/y
                 #数值微分方法,目前只设置了微分步长
-                eosintegrate=integrate.romberg(eosdiff,p0,pres);
+                eosr=-diff.derivative(gdiff,temp);
+                result=eosr
                 #微分后积分
             except Exception,error:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("DSV",self.eosset[0],error))
 
-                eosintegrate=0
+                result=0
 
         elif route=="3":
-            try:
-                eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,volume=0,tag="V")
-                eosdiff=lambda y:diff.derivative(eosv,y,abs(pres-p0)/step)-8.314/y
-                #数值微分方法,目前只设置了微分步长
-                eosintegrate=integrate.romberg(eosdiff,p0,pres);
-                #微分后积分
-            except Exception,error:
-                print ("KeyWord:%s + %s\nMistake:%s\n"%("DSV",self.eosset[0],error))
+            
+            dsvint=0
+            plength=(pres-p0)/100
+            pcomb=range(p0,pres,plength)
+            
+            for pint in pcomb:
+                eosv=self.Vv(temp,pint,p0)/1000
+                eosdt=lambda x:self.Vv(x,pint,p0)/1000
+                eosdiff=-diff.derivative(eosdt,temp,abs(temp-t0)/step)
+                dsvstep=eosdiff*plength
+                dsvint=dsvint+dsvstep
 
-                eosintegrate=0
-
+            dsv=dsvint*1000
+            result=dsv
             #错误时反馈eosintegrate=0!
+        
+        elif route=="RK":
+            #!Not Right Yet
+            dsv=equation.RK(self.eosset,temp,pres,0,"DSV")   
+            result=dsv
+            
+        else:
+            result=None
+            print "No such a DSV method"
 
-        #A Specific method for RK
-        '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
-        dsv=dsvfactor*8.3145
-        return dsv'''
+        return result
 
-        return eosintegrate
-
-    def Sub_dsl(temp,pres,t0=298.15,p0=100000,route="2"):
+    def Sub_dsl(self,temp,pres,t0=298.15,p0=100000,route="2"):
         equation=zEquation()
         psat=self.Pressure_of_saturation(temp,pres,p0=100000)
-        try:
-            eosv=lambda x:getattr(equation,self.eosset[0])(self.eosset,temp,x,volume=0,tag="V")
-            eosdiff=lambda y:diff.derivative(eosv,y,abs(pres-p0)/step)-8.314/y
-            #数值微分方法,目前只设置了微分步长
-            eosintegrate=integrate.romberg(eosdiff,p0,pres);
-            #微分后积分
-        except Exception,error:
-            print ("KeyWord:%s + %s\nMistake:%s\n"%("DSV",self.eosset[0],error))
-
-            eosintegrate=0
-
-            #错误时反馈eosintegrate=0!
-
-        #A Specific method for RK
-        '''eosa=0.42748*8.3145*8.3145*pow(material.tc,2.5)/material.pc
-        eosb=0.08664*8.3145*material.tc/material.pc
-        eosv=material.Vvolume(temp,pres,eos)
-        eosZ=pres*eosv/8.3145/temp
-        eosB=eosb*eosZ/pres/eosv
-        eosA=math.sqrt(eosa/eosb/8.3145/pow(temp,1.5)*eosB)
-        dsvfactor=0.5*eosA*eosA*math.log(1+eosB*pres/eosZ)-math.log(eosZ-eosB*pres)
-        dsv=dsvfactor*8.3145
-        return dsv'''
-
-
-
-        psat=self.Pressure_of_saturation(temp,pres,p0=100000)
-        #print psat
-        #计算气体饱和蒸汽压
-
-        fugsat=self.Phiv(temp,psat,p0,eos,"1")[1]
-        #计算气体逸度的route 如何动态化
-
-        #逸度系数龙贝格积分
-        try:
-            eosphilfunction=lambda x: self.Liquid_volume(temp,pres,p0=100000)
-            eosintegration=integrate.romberg(eosphilfunction,psat,pres);
-            #print ("Pressure Integeration:",eosintegration)
-            poynting=math.exp(1/8.3145/temp*eosintegration)
-            #Poynting is in separate Sub_philpc
-            phil=poynting*fugsat/pres
-            fugacity=phil*pres
-            result=(phil,fugacity,pres,poynting)
-
-        except Exception,error:
-            print ("KeyWord:%s + %s\nMistake:%s\n"%("EOS Phil",self.eosset[0],error))
-            result=(None,None,None)
+        
+        if route=="1":
+            pass
+        
+        elif route=="2":
+            
+            eosg=lambda x:self.Sub_dgl(x,pres,route="2")
+            
+            eosdiff=-diff.derivative(eosg,temp)
+            
+            result=eosdiff
+            
 
         return result
 
-        return eosintegrate
 
 
 
-    def Sub_dgv(temp,pres,t0=298.15,p0=100000,route="2"):
+    def Sub_dgv(self,temp,pres,t0=298.15,p0=100000,route="2"):
         #Not yet
         if route=="1":
-           pass
+            pass
 
         elif route=="2":
-           eosphiv=self.Phiv(temp,pres,p0)
-           result=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
-
+            
+            eosphiv=self.Phiv(temp,pres,p0)
+            #print eosphiv
+            eosr=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
+            result=eosr*1000
+            
 
         return result
 
 
-    def Sub_dgl(temp,pres,t0=298.15,p0=100000,route="2"):
+    def Sub_dgl(self,temp,pres,t0=298.15,p0=100000,route="2"):
         #!Use phil not 2,not imbeded
         if route=="1":
-           pass
+            pass
 
         elif route=="2":
-           eosphiv=self.Phil(temp,pres,p0,"2")
+            eosphiv=self.Phil(temp,pres,p0,"2")
 
-           result=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
-
+            eosr=8.3145*temp*math.log(eosphiv)+8.3145*temp*math.log(pres/p0)
+            result=1000*eosr
         elif route=="3":
             pass
         return result
@@ -828,9 +829,31 @@ if __name__=="__main__":
     for f in range(0,201,10):
         print(f,a.Phil(f+273.15,200000))'''
 
-    print("\n HV")
+    '''print("\n HV")
     for f in range(0,201,10):
-        a.Hv(f+273.15,200000,p0=1,route="2")
+        a.Hv(f+273.15,200000,p0=1,route="2")'''
     
     '''print("\n DHV")
     print(a.Sub_dhv(473.15,200000,route="3"))'''
+    
+    '''print("\n DHl")
+    for f in range(0,200,10):
+        print(f,a.Sub_dhl(f+273.15,2000000,298,100000,route="2"))'''
+    
+    '''print("\n Dgv")
+    #Dgv,dgl route2 are OK
+    print a.Phiv(298,100000)
+    for f in range(0,200,10):
+        print(f,a.Sub_dgl(f+273.15,200000,route="2"))'''
+    #DHL Done
+    #print a.Pressure_of_saturation(300,)
+    #print a.Sub_dhl(350,1000000,298,100000,route="2")
+    
+    '''print("\n DSv")
+    #Dgv,dgl route2 are OK
+    print a.Phiv(298,100000)
+    for f in range(0,201,10):
+        print(f,a.Sub_dsv(f+273.15,200000,route="2"))'''
+    
+    '''for f in range(0,201,10):
+        print(f,a.Sub_dsl(f+273.15,200000,route="2"))'''

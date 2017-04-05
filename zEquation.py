@@ -102,6 +102,18 @@ class zEquation():
                 dhvrt=eosZ-1-1.5*eosa/eosb/8.3145/pow(temp,1.5)*math.log(1+eosb/intev)
                 dhv=dhvrt*8.3145*temp
                 result=dhv*1000
+            
+            
+            elif tag=="DSV":
+                
+                #!Not Right Yet
+                '''intev=self.RK(para,temp,pres,volume,"V")/1000
+                eosZ=pres*intev/8.3145/temp
+                dsvfactor=eosa/2/pow(temp,1.5)/eosb*math.log(1+eosb/intev)-math.log(eosZ*(1-eosb/intev))
+                dsv=dsvfactor*8.3145
+                result=dsv*1000'''
+
+            
                 
             else:
                 print ("KeyWord:%s + %s\nMistake:%s\n"%("RK-Input Mistake",category,error))
@@ -469,10 +481,6 @@ class zEquation():
             pass
 
         return dipprdiff
-
-   
-    
-
 
 
 
