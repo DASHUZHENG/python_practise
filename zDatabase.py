@@ -1,6 +1,11 @@
-import xlrd
+# -*- coding: utf-8 -*-
+
+try:
+    import xlrd
+except Exception,error:
+    print("No,xlrd")
+
 import sqlite3
-import collections
 
 class zDatabase:
 
@@ -12,7 +17,7 @@ class zDatabase:
         cursor.execute('create table %s (%s %s primary key)' % (table.name,table.row_values(0)[0],table.row_values(1)[0]))
 
         for key in range(1,rcol):
-            print table.row_values(0)[key]
+            #print table.row_values(0)[key]
             cursor.execute('alter table %s add column %s %s ' % (table.name,table.row_values(0)[key],table.row_values(1)[key]))
 
         #cursor.execute('insert into %s (%s, %s) values (1, \'%s\')' % (table.name,table.row_values(0)[0],table.row_values(0)[1],"haha"))
@@ -51,15 +56,24 @@ class zDatabase:
 
         return result
        
-    def new(self,database,table,prime,cat):
 
-        conn=sqlite3.connect(database)
-        cursor = conn.cursor()
-        cursor.execute('create table If Not Exists %s (%s %s primary key)' % (table,prime,cat))
-        '''if isinstance(args[1:],collections.Iterable):
-            for key in args[1:]:
-                    print key
-                    cursor.execute('alter table %s add column %s %s ' % (table,key,"\"TEXT\""))'''
+if __name__=="__main__":
+    
+    excel=xlrd.open_workbook("Test.xlsm")
 
-    def alter(self,database,table,key,cat):
-        pass
+    table=excel.sheets()[0]
+    rcol=table.ncols
+    rown=table.nrows
+    a=zDatabase()
+    
+    for table in excel.sheets():
+        print table.name
+        a.Create("zPro.db",table)
+
+
+
+    
+    
+    
+    
+    
