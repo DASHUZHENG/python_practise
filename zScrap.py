@@ -4,7 +4,7 @@ import bs4
 import urlparse
 import datetime
 import time
-import zDatabase
+from zDatabase import ZDownData
 
 class zDownload:
     def __init__(self,delay=5,agent="bergy",proxy=None,num_retries=1,cache=None):
@@ -82,20 +82,26 @@ if __name__=="__main__":
 
     bs4obj=bs4.BeautifulSoup(html)
     h2content=bs4obj.find_all("a",href=re.compile("^/"))
-
     b=1
-    zyx=zDatabase.zDatabase()
+
+    zyx=ZDownData("eu4test.db")
     urlbase="http://www.eu4wiki.com"
+    #zyx.create_table("Pages","Name")
+    #zyx.add_column("Pages","HTML","TEXT")
+    #zyx.insert("Pages","Name","HTML",1,2)
+
     for a in h2content:
         #print b, a["href"]
-        newlocation=urlparse.urljoin(urlbase,a["href"])
-        html=download(newlocation)
-        par=bs4.BeautifulSoup(html)
-        h1=par.h1
-        print b,h1.get_text()
-        zyx.Create("eu4.db","name",)
-        b=b+1
-
+        if b<5:
+            newlocation=urlparse.urljoin(urlbase,a["href"])
+            html=download(newlocation)
+            par=bs4.BeautifulSoup(html)
+            h1=par.h1
+            zyx.insert("Pages","Name","HTML",b+20,str(a["href"]))
+            b=b+1
+    zyx.cursor.close()
+    zyx.db.commit()
+    zyx.db.close()
     '''a.New("eu4.db","HTML","HM","TEXT")'''
     print "Done"
 
