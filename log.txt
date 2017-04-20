@@ -1,0 +1,1999 @@
+Microsoft Windows [版本 10.0.10240]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\zyx>cd ..
+
+C:\Users>dir
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 B419-D5F4
+
+ C:\Users 的目录
+
+2017/01/31  18:07    <DIR>          .
+2017/01/31  18:07    <DIR>          ..
+2017/03/29  22:12    <DIR>          Public
+2017/04/15  03:30    <DIR>          zyx
+               0 个文件              0 字节
+               4 个目录 36,858,724,352 可用字节
+
+C:\Users>cd ..
+
+C:\>dir
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 B419-D5F4
+
+ C:\ 的目录
+
+2017/03/19  16:57         2,895,872 a.accdb
+2017/04/14  23:07    <DIR>          BDYD
+2017/04/20  20:43    <DIR>          Codeground
+2017/01/31  18:09    <DIR>          DRIVERS
+2017/01/31  18:10    <DIR>          Intel
+2015/07/10  19:04    <DIR>          PerfLogs
+2017/03/02  19:38    <DIR>          Program Files
+2017/03/27  22:13    <DIR>          Program Files (x86)
+2017/02/10  21:34    <DIR>          Python27
+2017/03/02  19:41    <DIR>          Qt
+2017/02/07  19:53    <DIR>          scrapy-1.2
+2017/01/31  18:07    <DIR>          Users
+2017/03/25  20:40    <DIR>          Windows
+2017/04/20  20:45    <DIR>          zPro
+2017/03/02  19:43    <DIR>          zyx
+               1 个文件      2,895,872 字节
+              14 个目录 36,858,716,160 可用字节
+
+C:\>cd zPro
+
+C:\zPro>dir
+ 驱动器 C 中的卷没有标签。
+ 卷的序列号是 B419-D5F4
+
+ C:\zPro 的目录
+
+2017/04/20  20:45    <DIR>          .
+2017/04/20  20:45    <DIR>          ..
+2017/04/14  23:00    <DIR>          .idea
+2017/04/20  20:45    <DIR>          trash
+2017/04/20  15:42            27,052 zChemical.py
+2017/04/20  15:42             3,602 zDatabase-old.py
+2017/04/20  15:42             2,088 zdatabase.py
+2017/04/20  15:42            16,275 zEquation.py
+2017/04/20  15:42            14,130 zMixture.py
+2017/04/20  15:42            82,944 zPro.db
+2017/04/20  17:19             3,758 zscrapy.py
+2017/04/20  15:42             1,218 zstest.py
+               8 个文件        151,067 字节
+               4 个目录 36,861,001,728 可用字节
+
+C:\zPro>git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   .idea/inspectionProfiles/Project_Default.xml
+        modified:   .idea/workspace.xml
+        deleted:    eu4.db
+        deleted:    eu4test.db
+        deleted:    log.txt
+        deleted:    main.py
+        modified:   zChemical.py
+        modified:   zDatabase.py
+        deleted:    zDatabase.pyc
+        modified:   zEquation.py
+        deleted:    zEquation.pyc
+        modified:   zMixture.py
+        modified:   zPro.db
+        deleted:    zScrap.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        trash/
+        zDatabase-old.py
+        zscrapy.py
+        zstest.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\zPro>git add *
+warning: LF will be replaced by CRLF in .idea/workspace.xml.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zChemical.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zDatabase.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zEquation.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zMixture.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/log.txt.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/main.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zChemical.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zDatabase-old.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zDatabase.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zEquation.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zscrapy.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in trash/zstest.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zDatabase-old.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zscrapy.py.
+The file will have its original line endings in your working directory.
+warning: LF will be replaced by CRLF in zstest.py.
+The file will have its original line endings in your working directory.
+
+C:\zPro>git commit -m "20140420-update"
+[master 93363b7] 20140420-update
+ 25 files changed, 2937 insertions(+), 220 deletions(-)
+ rename eu4.db => trash/eu4.db (100%)
+ rename eu4test.db => trash/eu4test.db (100%)
+ rename log.txt => trash/log.txt (100%)
+ rename main.py => trash/main.py (100%)
+ create mode 100644 trash/zChemical.py
+ copy zDatabase.py => trash/zDatabase-old.py (100%)
+ create mode 100644 trash/zDatabase.py
+ rename zDatabase.pyc => trash/zDatabase.pyc (100%)
+ create mode 100644 trash/zEquation.py
+ rename zEquation.pyc => trash/zEquation.pyc (100%)
+ create mode 100644 trash/zMixture.py
+ create mode 100644 trash/zPro.db
+ rename zScrap.py => trash/zScrap.py (100%)
+ create mode 100644 trash/zscrapy.py
+ create mode 100644 trash/zstest.py
+ create mode 100644 zDatabase-old.py
+ rewrite zDatabase.py (69%)
+ create mode 100644 zscrapy.py
+ create mode 100644 zstest.py
+
+C:\zPro>git push origin
+Counting objects: 14, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (14/14), 8.44 KiB | 0 bytes/s, done.
+Total 14 (delta 7), reused 0 (delta 0)
+remote: Resolving deltas: 100% (7/7), completed with 7 local objects.
+To github.com:DASHUZHENG/zPro.git
+   770e250..93363b7  master -> master
+
+C:\zPro>git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+
+C:\zPro>python zChemical.py
+Traceback (most recent call last):
+  File "zChemical.py", line 10, in <module>
+    import zDatabase
+ImportError: No module named zDatabase
+
+C:\zPro>ls
+'ls' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\zPro>bsw
+'bsw' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\zPro>psw
+'psw' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\zPro>pdw
+'pdw' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+
+C:\zPro>python zscrapy.py
+Downloading Start: http://www.eu4wiki.com/Europa_Universalis_4_Wiki
+C:\ProgramData\Anaconda2\lib\site-packages\bs4\__init__.py:181: UserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("lxml"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 151 of the file zscrapy.py. To get rid of this warning, change code that looks like this:
+
+ BeautifulSoup([your markup])
+
+to this:
+
+ BeautifulSoup([your markup], "lxml")
+
+  markup_type=markup_type))
+Counter 1
+Downloading Start: http://www.eu4wiki.com/Patch_1.2
+Counter 2
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.3
+Counter 3
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X
+Counter 4
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.2
+Counter 5
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.1
+Counter 6
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1
+Counter 7
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X#1.2.2
+Counter 8
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X
+Counter 9
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X#1.2.1
+Counter 10
+Downloading Start: http://www.eu4wiki.com/Patch_1.3.X#1.3.2
+Counter 11
+Downloading Start: http://www.eu4wiki.com/Patch_1.3.X
+Counter 12
+Downloading Start: http://www.eu4wiki.com/DLC
+Counter 13
+Downloading Start: http://www.eu4wiki.com/Uesugi
+Counter 14
+Downloading Start: http://www.eu4wiki.com/Muisca
+Counter 15
+Downloading Start: http://www.eu4wiki.com/Colonists
+Counter 16
+Downloading Start: http://www.eu4wiki.com/Envoy
+Counter 17
+Downloading Start: http://www.eu4wiki.com/Papacy
+Counter 18
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Curia_controller
+Counter 19
+Downloading Start: http://www.eu4wiki.com/Static_modifiers
+Counter 20
+Downloading Start: http://www.eu4wiki.com/Power_projection
+Counter 21
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#At_least_25_power_projection
+Counter 22
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Power_projection
+Counter 23
+Downloading Start: http://www.eu4wiki.com/Warfare#Peace_terms
+Counter 24
+Downloading Start: http://www.eu4wiki.com/Warfare
+Counter 25
+Downloading Start: http://www.eu4wiki.com/Military_leader
+Counter 26
+Downloading Start: http://www.eu4wiki.com/Heir
+Counter 27
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Regency_council
+Counter 28
+Downloading Start: http://www.eu4wiki.com/List_of_rulers
+Counter 29
+Downloading Start: http://www.eu4wiki.com/Rulers
+Counter 30
+Downloading Start: http://www.eu4wiki.com/Republican_tradition
+Counter 31
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Republican_Cultural_Sufferance
+Counter 32
+Downloading Start: http://www.eu4wiki.com/Hindustan
+Counter 33
+Downloading Start: http://www.eu4wiki.com/The_Sun_Never_Sets_on_the_Indian_Empire
+Counter 34
+Downloading Start: http://www.eu4wiki.com/The_Great_Khan
+Counter 35
+Downloading Start: http://www.eu4wiki.com/Ideas
+Counter 36
+Downloading Start: http://www.eu4wiki.com/Naval_ideas
+Counter 37
+Downloading Start: http://www.eu4wiki.com/Influence_ideas
+Counter 38
+Downloading Start: http://www.eu4wiki.com/Humanist_ideas
+Counter 39
+Downloading Start: http://www.eu4wiki.com/Expansion_ideas
+Counter 40
+Downloading Start: http://www.eu4wiki.com/Quantity_ideas
+Counter 41
+Downloading Start: http://www.eu4wiki.com/Quality_ideas
+Counter 42
+Downloading Start: http://www.eu4wiki.com/Maritime_ideas
+Counter 43
+Downloading Start: http://www.eu4wiki.com/Low_Countries
+Counter 44
+Downloading Start: http://www.eu4wiki.com/European_regions
+Counter 45
+Downloading Start: http://www.eu4wiki.com/Perm
+Counter 46
+Downloading Start: http://www.eu4wiki.com/Rivalled
+Counter 47
+Downloading Start: http://www.eu4wiki.com/Great_power
+Counter 48
+Downloading Start: http://www.eu4wiki.com/Diplomatic_actions
+Counter 49
+Downloading Start: http://www.eu4wiki.com/Exile
+Counter 50
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Scorched_Earth
+Counter 51
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Looted
+Counter 52
+Downloading Start: http://www.eu4wiki.com/Scorched_earth
+Counter 53
+Downloading Start: http://www.eu4wiki.com/Ferocity
+Counter 54
+Downloading Start: http://www.eu4wiki.com/Tariffs
+Counter 55
+Downloading Start: http://www.eu4wiki.com/Patch_1.18#CN50.25tariffs
+Counter 56
+Downloading Start: http://www.eu4wiki.com/Formable_nations
+Counter 57
+Downloading Start: http://www.eu4wiki.com/Formable_countries
+Counter 58
+Downloading Start: http://www.eu4wiki.com/Venezuela
+Counter 59
+Downloading Start: http://www.eu4wiki.com/Colonial_ideas
+Counter 60
+Downloading Start: http://www.eu4wiki.com/Formable_countries#Former_colonial_nations
+Counter 61
+Downloading Start: http://www.eu4wiki.com/Colonial_Colombia
+Counter 62
+Downloading Start: http://www.eu4wiki.com/South_America
+Counter 63
+Downloading Start: http://www.eu4wiki.com/Western_India
+Counter 64
+Downloading Start: http://www.eu4wiki.com/Baglana
+Counter 65
+Downloading Start: http://www.eu4wiki.com/Countries#Country_descriptions_list
+Counter 66
+Downloading Start: http://www.eu4wiki.com/Constitutional_Monarchy
+Counter 67
+Downloading Start: http://www.eu4wiki.com/Ottoman_Government
+Download Error Not Found
+Counter 68
+Downloading Start: http://www.eu4wiki.com/Elective_Monarchy
+Counter 69
+Downloading Start: http://www.eu4wiki.com/Pirates
+Counter 70
+Downloading Start: http://www.eu4wiki.com/Naval_warfare#Blockading
+Counter 71
+Downloading Start: http://www.eu4wiki.com/Berber
+Counter 72
+Downloading Start: http://www.eu4wiki.com/Karling
+Counter 73
+Downloading Start: http://www.eu4wiki.com/Siberian_clan_council
+Counter 74
+Downloading Start: http://www.eu4wiki.com/Government#Native_Council
+Counter 75
+Downloading Start: http://www.eu4wiki.com/European_regions#Italy
+Counter 76
+Downloading Start: http://www.eu4wiki.com/Theocracies
+Counter 77
+Downloading Start: http://www.eu4wiki.com/Client_states
+Counter 78
+Downloading Start: http://www.eu4wiki.com/Custom_ideas
+Counter 79
+Downloading Start: http://www.eu4wiki.com/Ideas_Guy
+Counter 80
+Downloading Start: http://www.eu4wiki.com/Emperor_of_China
+Download Error Not Found
+Counter 81
+Downloading Start: http://www.eu4wiki.com/Rise_of_the_White_Sheep
+Counter 82
+Downloading Start: http://www.eu4wiki.com/Naval_supplies
+Counter 83
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Production_leader
+Counter 84
+Downloading Start: http://www.eu4wiki.com/Trade_strategy#Trade_goods
+Counter 85
+Downloading Start: http://www.eu4wiki.com/Trade_strategy
+Counter 86
+Downloading Start: http://www.eu4wiki.com/Spices
+Counter 87
+Downloading Start: http://www.eu4wiki.com/Price_Change_events#Dye_Plantations_of_Bengal
+Counter 88
+Downloading Start: http://www.eu4wiki.com/Tea
+Counter 89
+Downloading Start: http://www.eu4wiki.com/Cocoa
+Counter 90
+Downloading Start: http://www.eu4wiki.com/Fur
+Counter 91
+Downloading Start: http://www.eu4wiki.com/Salt
+Counter 92
+Downloading Start: http://www.eu4wiki.com/Fish
+Counter 93
+Downloading Start: http://www.eu4wiki.com/Iron
+Counter 94
+Downloading Start: http://www.eu4wiki.com/Copper
+Counter 95
+Downloading Start: http://www.eu4wiki.com/Power_Projection
+Counter 96
+Downloading Start: http://www.eu4wiki.com/Privateer
+Counter 97
+Downloading Start: http://www.eu4wiki.com/Buildings#Manufactories_2
+Counter 98
+Downloading Start: http://www.eu4wiki.com/Rebellion
+Counter 99
+Downloading Start: http://www.eu4wiki.com/Patch_1.14#Free_features
+Counter 100
+Runing 285.90199995 seconds
+
+C:\zPro>python zscrapy.py
+Downloading Start: http://www.eu4wiki.com/Europa_Universalis_4_Wiki
+C:\ProgramData\Anaconda2\lib\site-packages\bs4\__init__.py:181: UserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system ("lxml"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.
+
+The code that caused this warning is on line 151 of the file zscrapy.py. To get rid of this warning, change code that looks like this:
+
+ BeautifulSoup([your markup])
+
+to this:
+
+ BeautifulSoup([your markup], "lxml")
+
+  markup_type=markup_type))
+Counter 1
+Downloading Start: http://www.eu4wiki.com/Patch_1.2
+Counter 2
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.3
+Counter 3
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X
+Counter 4
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.2
+Counter 5
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1.1
+Counter 6
+Downloading Start: http://www.eu4wiki.com/Patch_1.1.X#1.1
+Counter 7
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X#1.2.2
+Counter 8
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X
+Counter 9
+Downloading Start: http://www.eu4wiki.com/Patch_1.2.X#1.2.1
+Counter 10
+Downloading Start: http://www.eu4wiki.com/Patch_1.3.X#1.3.2
+Counter 11
+Downloading Start: http://www.eu4wiki.com/Patch_1.3.X
+Counter 12
+Downloading Start: http://www.eu4wiki.com/DLC
+Counter 13
+Downloading Start: http://www.eu4wiki.com/Uesugi
+Counter 14
+Downloading Start: http://www.eu4wiki.com/Muisca
+Counter 15
+Downloading Start: http://www.eu4wiki.com/Colonists
+Counter 16
+Downloading Start: http://www.eu4wiki.com/Envoy
+Counter 17
+Downloading Start: http://www.eu4wiki.com/Papacy
+Counter 18
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Curia_controller
+Counter 19
+Downloading Start: http://www.eu4wiki.com/Static_modifiers
+Counter 20
+Downloading Start: http://www.eu4wiki.com/Power_projection
+Counter 21
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#At_least_25_power_projection
+Counter 22
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Power_projection
+Counter 23
+Downloading Start: http://www.eu4wiki.com/Warfare#Peace_terms
+Counter 24
+Downloading Start: http://www.eu4wiki.com/Warfare
+Counter 25
+Downloading Start: http://www.eu4wiki.com/Military_leader
+Counter 26
+Downloading Start: http://www.eu4wiki.com/Heir
+Counter 27
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Regency_council
+Counter 28
+Downloading Start: http://www.eu4wiki.com/List_of_rulers
+Counter 29
+Downloading Start: http://www.eu4wiki.com/Rulers
+Counter 30
+Downloading Start: http://www.eu4wiki.com/Republican_tradition
+Counter 31
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Republican_Cultural_Sufferance
+Counter 32
+Downloading Start: http://www.eu4wiki.com/Hindustan
+Counter 33
+Downloading Start: http://www.eu4wiki.com/The_Sun_Never_Sets_on_the_Indian_Empire
+Counter 34
+Downloading Start: http://www.eu4wiki.com/The_Great_Khan
+Counter 35
+Downloading Start: http://www.eu4wiki.com/Ideas
+Counter 36
+Downloading Start: http://www.eu4wiki.com/Naval_ideas
+Counter 37
+Downloading Start: http://www.eu4wiki.com/Influence_ideas
+Counter 38
+Downloading Start: http://www.eu4wiki.com/Humanist_ideas
+Counter 39
+Downloading Start: http://www.eu4wiki.com/Expansion_ideas
+Counter 40
+Downloading Start: http://www.eu4wiki.com/Quantity_ideas
+Counter 41
+Downloading Start: http://www.eu4wiki.com/Quality_ideas
+Counter 42
+Downloading Start: http://www.eu4wiki.com/Maritime_ideas
+Counter 43
+Downloading Start: http://www.eu4wiki.com/Low_Countries
+Counter 44
+Downloading Start: http://www.eu4wiki.com/European_regions
+Counter 45
+Downloading Start: http://www.eu4wiki.com/Perm
+Counter 46
+Downloading Start: http://www.eu4wiki.com/Rivalled
+Counter 47
+Downloading Start: http://www.eu4wiki.com/Great_power
+Counter 48
+Downloading Start: http://www.eu4wiki.com/Diplomatic_actions
+Counter 49
+Downloading Start: http://www.eu4wiki.com/Exile
+Counter 50
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Scorched_Earth
+Counter 51
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Looted
+Counter 52
+Downloading Start: http://www.eu4wiki.com/Scorched_earth
+Counter 53
+Downloading Start: http://www.eu4wiki.com/Ferocity
+Counter 54
+Downloading Start: http://www.eu4wiki.com/Tariffs
+Counter 55
+Downloading Start: http://www.eu4wiki.com/Patch_1.18#CN50.25tariffs
+Counter 56
+Downloading Start: http://www.eu4wiki.com/Formable_nations
+Counter 57
+Downloading Start: http://www.eu4wiki.com/Formable_countries
+Counter 58
+Downloading Start: http://www.eu4wiki.com/Venezuela
+Counter 59
+Downloading Start: http://www.eu4wiki.com/Colonial_ideas
+Counter 60
+Downloading Start: http://www.eu4wiki.com/Formable_countries#Former_colonial_nations
+Counter 61
+Downloading Start: http://www.eu4wiki.com/Colonial_Colombia
+Counter 62
+Downloading Start: http://www.eu4wiki.com/South_America
+Counter 63
+Downloading Start: http://www.eu4wiki.com/Western_India
+Counter 64
+Downloading Start: http://www.eu4wiki.com/Baglana
+Counter 65
+Downloading Start: http://www.eu4wiki.com/Countries#Country_descriptions_list
+Counter 66
+Downloading Start: http://www.eu4wiki.com/Constitutional_Monarchy
+Counter 67
+Downloading Start: http://www.eu4wiki.com/Ottoman_Government
+Download Error Not Found
+Counter 68
+Downloading Start: http://www.eu4wiki.com/Elective_Monarchy
+Counter 69
+Downloading Start: http://www.eu4wiki.com/Pirates
+Counter 70
+Downloading Start: http://www.eu4wiki.com/Naval_warfare#Blockading
+Counter 71
+Downloading Start: http://www.eu4wiki.com/Berber
+Counter 72
+Downloading Start: http://www.eu4wiki.com/Karling
+Counter 73
+Downloading Start: http://www.eu4wiki.com/Siberian_clan_council
+Counter 74
+Downloading Start: http://www.eu4wiki.com/Government#Native_Council
+Counter 75
+Downloading Start: http://www.eu4wiki.com/European_regions#Italy
+Counter 76
+Downloading Start: http://www.eu4wiki.com/Theocracies
+Counter 77
+Downloading Start: http://www.eu4wiki.com/Client_states
+Counter 78
+Downloading Start: http://www.eu4wiki.com/Custom_ideas
+Counter 79
+Downloading Start: http://www.eu4wiki.com/Ideas_Guy
+Counter 80
+Downloading Start: http://www.eu4wiki.com/Emperor_of_China
+Download Error Not Found
+Counter 81
+Downloading Start: http://www.eu4wiki.com/Rise_of_the_White_Sheep
+Counter 82
+Downloading Start: http://www.eu4wiki.com/Naval_supplies
+Counter 83
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Production_leader
+Counter 84
+Downloading Start: http://www.eu4wiki.com/Trade_strategy#Trade_goods
+Counter 85
+Downloading Start: http://www.eu4wiki.com/Trade_strategy
+Counter 86
+Downloading Start: http://www.eu4wiki.com/Spices
+Counter 87
+Downloading Start: http://www.eu4wiki.com/Price_Change_events#Dye_Plantations_of_Bengal
+Counter 88
+Downloading Start: http://www.eu4wiki.com/Tea
+Counter 89
+Downloading Start: http://www.eu4wiki.com/Cocoa
+Counter 90
+Downloading Start: http://www.eu4wiki.com/Fur
+Counter 91
+Downloading Start: http://www.eu4wiki.com/Salt
+Counter 92
+Downloading Start: http://www.eu4wiki.com/Fish
+Counter 93
+Downloading Start: http://www.eu4wiki.com/Iron
+Counter 94
+Downloading Start: http://www.eu4wiki.com/Copper
+Counter 95
+Downloading Start: http://www.eu4wiki.com/Power_Projection
+Counter 96
+Downloading Start: http://www.eu4wiki.com/Privateer
+Counter 97
+Downloading Start: http://www.eu4wiki.com/Buildings#Manufactories_2
+Counter 98
+Downloading Start: http://www.eu4wiki.com/Rebellion
+Counter 99
+Downloading Start: http://www.eu4wiki.com/Patch_1.14#Free_features
+Counter 100
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Local_autonomy
+Counter 101
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Unrest
+Counter 102
+Downloading Start: http://www.eu4wiki.com/Viva_la_Revoluci%C3%B3n!
+Counter 103
+Downloading Start: http://www.eu4wiki.com/My_True_Friend
+Counter 104
+Downloading Start: http://www.eu4wiki.com/Technology#Primitive
+Counter 105
+Downloading Start: http://www.eu4wiki.com/Patch_1.4#Technology
+Counter 106
+Downloading Start: http://www.eu4wiki.com/Ambrosian_republic
+Counter 107
+Downloading Start: http://www.eu4wiki.com/Indian
+Counter 108
+Downloading Start: http://www.eu4wiki.com/Mission
+Counter 109
+Downloading Start: http://www.eu4wiki.com/Missions_and_Decisions
+Counter 110
+Downloading Start: http://www.eu4wiki.com/Country_interface
+Counter 111
+Downloading Start: http://www.eu4wiki.com/Native_policy
+Counter 112
+Downloading Start: http://www.eu4wiki.com/Policy
+Counter 113
+Downloading Start: http://www.eu4wiki.com/Interest
+Counter 114
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Bankruptcy
+Counter 115
+Downloading Start: http://www.eu4wiki.com/Monarch_power#Administrative
+Counter 116
+Downloading Start: http://www.eu4wiki.com/Government#Devotion
+Counter 117
+Downloading Start: http://www.eu4wiki.com/Government#Horde_unity
+Counter 118
+Downloading Start: http://www.eu4wiki.com/Government#Legitimacy
+Counter 119
+Downloading Start: http://www.eu4wiki.com/Government#Strengthen_Government
+Counter 120
+Downloading Start: http://www.eu4wiki.com/Prussia#Prussian_monarchy
+Counter 121
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events
+Counter 122
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#And_so_the_lands_of_our_family_are_reunited.21
+Counter 123
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#.27.27.27Hidden.27.27.27_Succession_of_Albrecht_Achilles
+Counter 124
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#The_Teutonic_Order_Declines
+Counter 125
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#Treaty_of_C.C3.B6lln
+Counter 126
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#The_Fate_of_Neumark
+Counter 127
+Downloading Start: http://www.eu4wiki.com/Artist
+Counter 128
+Downloading Start: http://www.eu4wiki.com/Master_Recruiter
+Counter 129
+Downloading Start: http://www.eu4wiki.com/Grand_Captain
+Counter 130
+Downloading Start: http://www.eu4wiki.com/Commandant
+Counter 131
+Downloading Start: http://www.eu4wiki.com/Army_Organizer
+Counter 132
+Downloading Start: http://www.eu4wiki.com/Military_Engineer
+Counter 133
+Downloading Start: http://www.eu4wiki.com/Quartermaster
+Counter 134
+Downloading Start: http://www.eu4wiki.com/Manchu#Construct_the_Forbidden_City
+Counter 135
+Downloading Start: http://www.eu4wiki.com/Steppe_Horde
+Counter 136
+Downloading Start: http://www.eu4wiki.com/Revolt#Revolt_size
+Counter 137
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Reform_the_Government_.28Steppe_nomads.29
+Counter 138
+Downloading Start: http://www.eu4wiki.com/Religious_events#The_Counter-Reformation_Ends_5
+Counter 139
+Downloading Start: http://www.eu4wiki.com/Religious_events
+Counter 140
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_To_Judaism
+Counter 141
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_To_Zoroastrianism
+Counter 142
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_to_an_Indic_Faith
+Counter 143
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_to_Buddhism
+Counter 144
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_to_Islam
+Counter 145
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Convert_to_Christianity
+Counter 146
+Downloading Start: http://www.eu4wiki.com/Shia_zealots
+Counter 147
+Downloading Start: http://www.eu4wiki.com/Religious_events#religious_events.17
+Counter 148
+Downloading Start: http://www.eu4wiki.com/Religious_events#The_Counter-Reformation_Ends_4
+Counter 149
+Downloading Start: http://www.eu4wiki.com/Religious_events#The_Counter-Reformation_Ends_3
+Counter 150
+Downloading Start: http://www.eu4wiki.com/Religious_events#The_Counter-Reformation_Ends_2
+Counter 151
+Downloading Start: http://www.eu4wiki.com/France#Revoke_Edict_de_Nantes
+Counter 152
+Downloading Start: http://www.eu4wiki.com/Azur_sem%C3%A9_de_lis_or
+Counter 153
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_absolutism
+Counter 154
+Downloading Start: http://www.eu4wiki.com/Fire_damage_received
+Download Error Not Found
+Counter 155
+Downloading Start: http://www.eu4wiki.com/Artillery_damage_from_backrow
+Download Error Not Found
+Counter 156
+Downloading Start: http://www.eu4wiki.com/Global_naval_engagement
+Counter 157
+Downloading Start: http://www.eu4wiki.com/Artillery_bonus_vs_fort
+Download Error Not Found
+Counter 158
+Downloading Start: http://www.eu4wiki.com/Harsh_treatment_cost
+Download Error Not Found
+Counter 159
+Downloading Start: http://www.eu4wiki.com/Autonomy_change_cooldown
+Download Error Not Found
+Counter 160
+Downloading Start: http://www.eu4wiki.com/Change_rival_cost
+Download Error Not Found
+Counter 161
+Downloading Start: http://www.eu4wiki.com/Edict
+Counter 162
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_Absolutism
+Counter 163
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_Reformation
+Counter 164
+Downloading Start: http://www.eu4wiki.com/Resistance_to_reformation
+Download Error Not Found
+Counter 165
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_Exploration
+Counter 166
+Downloading Start: http://www.eu4wiki.com/Random_new_world
+Counter 167
+Downloading Start: http://www.eu4wiki.com/Estuary
+Counter 168
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Severe_Winter
+Counter 169
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Normal_Winter
+Counter 170
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Mild_Winter
+Counter 171
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Tropical
+Counter 172
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Arid
+Counter 173
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Arctic
+Counter 174
+Downloading Start: http://www.eu4wiki.com/The_Protestant_Reformation
+Counter 175
+Downloading Start: http://www.eu4wiki.com/Protestant_events
+Counter 176
+Downloading Start: http://www.eu4wiki.com/Rebel
+Counter 177
+Downloading Start: http://www.eu4wiki.com/Religious_idea_group
+Counter 178
+Downloading Start: http://www.eu4wiki.com/Innovative_idea_group
+Counter 179
+Downloading Start: http://www.eu4wiki.com/Map_modes
+Counter 180
+Downloading Start: http://www.eu4wiki.com/Ruler#Dynasty
+Counter 181
+Downloading Start: http://www.eu4wiki.com/Culture#Accepted_cultures
+Counter 182
+Downloading Start: http://www.eu4wiki.com/Guyenne
+Counter 183
+Downloading Start: http://www.eu4wiki.com/National_ideas#Luxembourg
+Counter 184
+Downloading Start: http://www.eu4wiki.com/National_ideas#Holland_.2F_Netherlands
+Counter 185
+Downloading Start: http://www.eu4wiki.com/National_ideas#German
+Counter 186
+Downloading Start: http://www.eu4wiki.com/National_ideas#Portugal
+Counter 187
+Downloading Start: http://www.eu4wiki.com/National_ideas#Navarra
+Counter 188
+Downloading Start: http://www.eu4wiki.com/National_ideas#Le.C3.B3n
+Counter 189
+Downloading Start: http://www.eu4wiki.com/National_ideas#Granada
+Counter 190
+Downloading Start: http://www.eu4wiki.com/National_ideas#Galicia
+Counter 191
+Downloading Start: http://www.eu4wiki.com/National_ideas#Catalonia
+Counter 192
+Downloading Start: http://www.eu4wiki.com/National_ideas#Spain_.2F_Castile
+Counter 193
+Downloading Start: http://www.eu4wiki.com/National_ideas#Aragon
+Counter 194
+Downloading Start: http://www.eu4wiki.com/National_ideas#Savoy_.2F_Sardinia-Piedmont
+Counter 195
+Downloading Start: http://www.eu4wiki.com/National_ideas#Provence
+Counter 196
+Downloading Start: http://www.eu4wiki.com/National_ideas#Orleans
+Counter 197
+Downloading Start: http://www.eu4wiki.com/National_ideas#Nevers
+Counter 198
+Downloading Start: http://www.eu4wiki.com/National_ideas#Lorraine
+Counter 199
+Downloading Start: http://www.eu4wiki.com/National_ideas#France
+Counter 200
+Downloading Start: http://www.eu4wiki.com/National_ideas#Burgundy
+Counter 201
+Downloading Start: http://www.eu4wiki.com/National_ideas#Brittany
+Counter 202
+Downloading Start: http://www.eu4wiki.com/National_ideas#Divine
+Counter 203
+Downloading Start: http://www.eu4wiki.com/National_ideas#French_ducal
+Counter 204
+Downloading Start: http://www.eu4wiki.com/National_ideas#Wales
+Counter 205
+Downloading Start: http://www.eu4wiki.com/National_ideas#Thomond
+Counter 206
+Downloading Start: http://www.eu4wiki.com/National_ideas#Sligo
+Counter 207
+Downloading Start: http://www.eu4wiki.com/National_ideas#Scotland
+Counter 208
+Downloading Start: http://www.eu4wiki.com/National_ideas#Northumberland
+Counter 209
+Downloading Start: http://www.eu4wiki.com/National_ideas#England
+Counter 210
+Downloading Start: http://www.eu4wiki.com/National_ideas#Desmond
+Counter 211
+Downloading Start: http://www.eu4wiki.com/National_ideas#Irish
+Counter 212
+Downloading Start: http://www.eu4wiki.com/Restore_the_Roman_Empire
+Counter 213
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Accept_Cultural_Shift
+Counter 214
+Downloading Start: http://www.eu4wiki.com/Holy_Roman_Empire#Italy_and_the_HRE
+Counter 215
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Free_Cities_in_the_Holy_Roman_Empire
+Counter 216
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#States_in_the_Holy_Roman_Empire
+Counter 217
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Emperor
+Counter 218
+Downloading Start: http://www.eu4wiki.com/Austrian_missions#Reclaim_the_Imperial_Crown
+Counter 219
+Downloading Start: http://www.eu4wiki.com/European_regions#Silesia
+Counter 220
+Downloading Start: http://www.eu4wiki.com/Malopolska
+Counter 221
+Downloading Start: http://www.eu4wiki.com/European_regions#Bosnia
+Counter 222
+Downloading Start: http://www.eu4wiki.com/Rascia
+Counter 223
+Downloading Start: http://www.eu4wiki.com/European_regions#Serbia
+Counter 224
+Downloading Start: http://www.eu4wiki.com/European_regions#Bulgaria
+Counter 225
+Downloading Start: http://www.eu4wiki.com/European_regions#Wallachia
+Counter 226
+Downloading Start: http://www.eu4wiki.com/European_regions#Croatia
+Counter 227
+Downloading Start: http://www.eu4wiki.com/East_Adriatic
+Counter 228
+Downloading Start: http://www.eu4wiki.com/Allied
+Counter 229
+Downloading Start: http://www.eu4wiki.com/Vassal#Subject_interaction
+Counter 230
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#March_subject
+Counter 231
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Vassal_subject
+Counter 232
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Static_modifiers.23Base_values
+Counter 233
+Downloading Start: http://www.eu4wiki.com/Sell_province
+Counter 234
+Downloading Start: http://www.eu4wiki.com/Warfare#Occupation
+Counter 235
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Access_actions
+Counter 236
+Downloading Start: http://www.eu4wiki.com/For_the_Glory
+Counter 237
+Downloading Start: http://www.eu4wiki.com/Hostile_core-creation_cost
+Counter 238
+Downloading Start: http://www.eu4wiki.com/Warfare#Demands
+Counter 239
+Downloading Start: http://www.eu4wiki.com/Odin
+Counter 240
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Doom
+Counter 241
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Authority
+Counter 242
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#High_Karma
+Counter 243
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Neutral_Karma
+Counter 244
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Low_Karma
+Counter 245
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Lack_of_Piety
+Counter 246
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Being_Pious
+Counter 247
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Patriarch_Authority_.28local.29
+Counter 248
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Patriarch_Authority_.28national.29
+Counter 249
+Downloading Start: http://www.eu4wiki.com/Religious_leagues
+Counter 250
+Downloading Start: http://www.eu4wiki.com/Converter
+Counter 251
+Downloading Start: http://www.eu4wiki.com/Hellenic
+Counter 252
+Downloading Start: http://www.eu4wiki.com/Suomenusko
+Counter 253
+Downloading Start: http://www.eu4wiki.com/Slavic
+Counter 254
+Downloading Start: http://www.eu4wiki.com/Romuva
+Counter 255
+Downloading Start: http://www.eu4wiki.com/Jain
+Counter 256
+Downloading Start: http://www.eu4wiki.com/Inti_events
+Counter 257
+Downloading Start: http://www.eu4wiki.com/Dlc
+Counter 258
+Downloading Start: http://www.eu4wiki.com/Nation_Designer
+Counter 259
+Downloading Start: http://www.eu4wiki.com/Domestic_trade_power
+Counter 260
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Mercantilism
+Counter 261
+Downloading Start: http://www.eu4wiki.com/Naval_warfare#Hunt_pirates
+Counter 262
+Downloading Start: http://www.eu4wiki.com/Aristocratic_Coup
+Counter 263
+Downloading Start: http://www.eu4wiki.com/Prussian_monarchy
+Counter 264
+Downloading Start: http://www.eu4wiki.com/Ottoman_sultanate
+Counter 265
+Downloading Start: http://www.eu4wiki.com/Province_warscore_cost
+Counter 266
+Downloading Start: http://www.eu4wiki.com/Insufficient_Support
+Counter 267
+Downloading Start: http://www.eu4wiki.com/Ottoman_events
+Counter 268
+Downloading Start: http://www.eu4wiki.com/Persian_events#Turko-Persian_Tension
+Counter 269
+Downloading Start: http://www.eu4wiki.com/Persian_events
+Counter 270
+Downloading Start: http://www.eu4wiki.com/Ottoman_events#Persian_Response_.28unfavorable.29
+Counter 271
+Downloading Start: http://www.eu4wiki.com/Ottoman_events#Persian_Response_.28favorable.29
+Counter 272
+Downloading Start: http://www.eu4wiki.com/Ottoman_events#The_Treaty_of_Kasr-i_Sirin
+Counter 273
+Downloading Start: http://www.eu4wiki.com/Ottoman_events#Persians_take_advantage_of_Ottoman_instability
+Counter 274
+Downloading Start: http://www.eu4wiki.com/Ottoman_events#Murad_III.27s_campaigns_against_Persia
+Counter 275
+Downloading Start: http://www.eu4wiki.com/Persian_events#Murad_III.27s_campaigns_against_Persia
+Counter 276
+Downloading Start: http://www.eu4wiki.com/Persian_events#The_Treaty_of_Kasr-i_Sirin
+Counter 277
+Downloading Start: http://www.eu4wiki.com/Venetian_events#Alexandria_Acquired
+Counter 278
+Downloading Start: http://www.eu4wiki.com/Venetian_events
+Counter 279
+Downloading Start: http://www.eu4wiki.com/Spanish_events#Torquemada_and_the_Conversion_of_the_Moors
+Counter 280
+Downloading Start: http://www.eu4wiki.com/Spanish_events
+Counter 281
+Downloading Start: http://www.eu4wiki.com/Colonial_nation_events#New_Government.21
+Counter 282
+Downloading Start: http://www.eu4wiki.com/Colonial_government
+Counter 283
+Downloading Start: http://www.eu4wiki.com/Constitutional_republic
+Counter 284
+Downloading Start: http://www.eu4wiki.com/Administrative_republic
+Counter 285
+Downloading Start: http://www.eu4wiki.com/Enlightened_despotism
+Counter 286
+Downloading Start: http://www.eu4wiki.com/Absolute_monarchy
+Counter 287
+Downloading Start: http://www.eu4wiki.com/Ambrosian_Republic
+Counter 288
+Downloading Start: http://www.eu4wiki.com/Dutch_Republic
+Counter 289
+Downloading Start: http://www.eu4wiki.com/France#.27L.27.C3.89tat_c.27est_moi.27
+Counter 290
+Downloading Start: http://www.eu4wiki.com/Brandenburg-Prussian_events#Frederick_William.27s_Absolutism
+Counter 291
+Downloading Start: http://www.eu4wiki.com/Swedish_events#The_Absolutism
+Counter 292
+Downloading Start: http://www.eu4wiki.com/Swedish_events
+Counter 293
+Downloading Start: http://www.eu4wiki.com/Peasants
+Counter 294
+Downloading Start: http://www.eu4wiki.com/Revolutionary_empire
+Counter 295
+Downloading Start: http://www.eu4wiki.com/Ages#Golden_Era
+Counter 296
+Downloading Start: http://www.eu4wiki.com/Goverment_rank
+Counter 297
+Downloading Start: http://www.eu4wiki.com/Russian_events#Governmental_Reforms_and_the_Absolutism
+Counter 298
+Downloading Start: http://www.eu4wiki.com/Russian_events
+Counter 299
+Downloading Start: http://www.eu4wiki.com/Bankrupcy
+Counter 300
+Downloading Start: http://www.eu4wiki.com/Debase_currency
+Counter 301
+Downloading Start: http://www.eu4wiki.com/Strengthen_Government
+Counter 302
+Downloading Start: http://www.eu4wiki.com/Harsh_treatment
+Counter 303
+Downloading Start: http://www.eu4wiki.com/Administrative_monarchy
+Counter 304
+Downloading Start: http://www.eu4wiki.com/List_of_event_lists#4_year_pulse
+Counter 305
+Downloading Start: http://www.eu4wiki.com/List_of_event_lists
+Counter 306
+Downloading Start: http://www.eu4wiki.com/On_Action_events
+Counter 307
+Downloading Start: http://www.eu4wiki.com/Capital_area
+Counter 308
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Capital_City
+Counter 309
+Downloading Start: http://www.eu4wiki.com/Straits
+Counter 310
+Downloading Start: http://www.eu4wiki.com/State
+Counter 311
+Downloading Start: http://www.eu4wiki.com/Minimap
+Counter 312
+Downloading Start: http://www.eu4wiki.com/Cleanup_events
+Counter 313
+Downloading Start: http://www.eu4wiki.com/Church_Attendance_Duty
+Counter 314
+Downloading Start: http://www.eu4wiki.com/West_African_events
+Counter 315
+Downloading Start: http://www.eu4wiki.com/Union_events
+Counter 316
+Downloading Start: http://www.eu4wiki.com/Tutorial_events
+Counter 317
+Downloading Start: http://www.eu4wiki.com/Rebellion#All_faction_types
+Counter 318
+Downloading Start: http://www.eu4wiki.com/Tribes_events
+Counter 319
+Downloading Start: http://www.eu4wiki.com/Trade_Company_events
+Counter 320
+Downloading Start: http://www.eu4wiki.com/Thirty_Years_War_events
+Counter 321
+Downloading Start: http://www.eu4wiki.com/Theocracies_events
+Counter 322
+Downloading Start: http://www.eu4wiki.com/Steppe_Flavour_events
+Counter 323
+Downloading Start: http://www.eu4wiki.com/Privateers_events
+Counter 324
+Downloading Start: http://www.eu4wiki.com/Pragmatic_Sanction_events
+Counter 325
+Downloading Start: http://www.eu4wiki.com/Personality_events
+Counter 326
+Downloading Start: http://www.eu4wiki.com/Parliament_events
+Counter 327
+Downloading Start: http://www.eu4wiki.com/Revolutionaries
+Counter 328
+Downloading Start: http://www.eu4wiki.com/Native_American_events
+Counter 329
+Downloading Start: http://www.eu4wiki.com/Mercantilism_events
+Counter 330
+Downloading Start: http://www.eu4wiki.com/Liberum_Veto_events
+Counter 331
+Downloading Start: http://www.eu4wiki.com/Japan_events
+Counter 332
+Downloading Start: http://www.eu4wiki.com/National_ideas#Japan
+Counter 333
+Downloading Start: http://www.eu4wiki.com/Annexation
+Counter 334
+Downloading Start: http://www.eu4wiki.com/Holy_Roman_Empire_events
+Counter 335
+Downloading Start: http://www.eu4wiki.com/Italy#Form_Italian_Nation
+Counter 336
+Downloading Start: http://www.eu4wiki.com/Holy_Roman_Empire_events#.5BFrom.GetName.5D_breaks_out_of_the_Empire
+Counter 337
+Downloading Start: http://www.eu4wiki.com/Germany#Form_German_Nation
+Counter 338
+Downloading Start: http://www.eu4wiki.com/An_early_Reich
+Counter 339
+Downloading Start: http://www.eu4wiki.com/Germany_breaks_out_of_the_Empire
+Counter 340
+Downloading Start: http://www.eu4wiki.com/Permanent_claims
+Counter 341
+Downloading Start: http://www.eu4wiki.com/Patch_1.14.X
+Counter 342
+Downloading Start: http://www.eu4wiki.com/Relations#Aggressive_expansion
+Counter 343
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Offer_alliance
+Counter 344
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Transfer_trade_power
+Counter 345
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Offer_military_access
+Counter 346
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Send_gift
+Counter 347
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Improve_relations
+Counter 348
+Downloading Start: http://www.eu4wiki.com/Continents
+Counter 349
+Downloading Start: http://www.eu4wiki.com/Coalitions
+Counter 350
+Downloading Start: http://www.eu4wiki.com/Bavarian_missions#Drive_the_Hohenzollerns_out
+Counter 351
+Downloading Start: http://www.eu4wiki.com/Bavarian_missions
+Counter 352
+Downloading Start: http://www.eu4wiki.com/Claims
+Counter 353
+Downloading Start: http://www.eu4wiki.com/Lower_Bavaria
+Counter 354
+Downloading Start: http://www.eu4wiki.com/Upper_Bavaria
+Counter 355
+Downloading Start: http://www.eu4wiki.com/Franconia
+Counter 356
+Downloading Start: http://www.eu4wiki.com/Bavarian_missions#Uniting_the_Wittelsbach_Domains
+Counter 357
+Downloading Start: http://www.eu4wiki.com/Bavarian_missions#Claiming_the_Wittelsbach_lands
+Counter 358
+Downloading Start: http://www.eu4wiki.com/Bavarian_missions#The_Franconian_Inheritance
+Counter 359
+Downloading Start: http://www.eu4wiki.com/Seven_Cities_events#Sierra_de_la_Plata_-_Mountain_of_Silver
+Counter 360
+Downloading Start: http://www.eu4wiki.com/Privateers_events#A_Reckless_Privateer
+Counter 361
+Downloading Start: http://www.eu4wiki.com/Japanese_events#Western_Wrecked_Ship
+Counter 362
+Downloading Start: http://www.eu4wiki.com/Catholic_zealots
+Counter 363
+Downloading Start: http://www.eu4wiki.com/Ikko-Ikkis
+Counter 364
+Downloading Start: http://www.eu4wiki.com/Diplomatic_events#Incompetent_Diplomacy.21
+Counter 365
+Downloading Start: http://www.eu4wiki.com/Diplomatic_events#Competent_Diplomacy.21
+Counter 366
+Downloading Start: http://www.eu4wiki.com/Anti-Christian_Edict
+Counter 367
+Downloading Start: http://www.eu4wiki.com/Enlist_Privateers
+Counter 368
+Downloading Start: http://www.eu4wiki.com/Diplomatic_feedback#Managing_attitude
+Counter 369
+Downloading Start: http://www.eu4wiki.com/Casus_belli#Conquest
+Counter 370
+Downloading Start: http://www.eu4wiki.com/Espionage#Fabricate_claims
+Counter 371
+Downloading Start: http://www.eu4wiki.com/Rebellion#Support_for_rebels
+Counter 372
+Downloading Start: http://www.eu4wiki.com/Cost_to_justify_trade_conflict
+Counter 373
+Downloading Start: http://www.eu4wiki.com/Tuscany#The_Emperor_Condemns_Tuscany.27s_Elevation
+Counter 374
+Downloading Start: http://www.eu4wiki.com/Tuscan_events#The_Emperor_Confirms_Tuscany.27s_Elevation
+Counter 375
+Downloading Start: http://www.eu4wiki.com/Women_in_History_events#Aphra_Behn
+Counter 376
+Downloading Start: http://www.eu4wiki.com/Naval_reformer
+Counter 377
+Downloading Start: http://www.eu4wiki.com/Army_reformer
+Counter 378
+Downloading Start: http://www.eu4wiki.com/Army_organiser
+Counter 379
+Downloading Start: http://www.eu4wiki.com/Natural_scientist
+Counter 380
+Downloading Start: http://www.eu4wiki.com/Grand_captain
+Counter 381
+Downloading Start: http://www.eu4wiki.com/Natural_scienist
+Counter 382
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Invasion
+Counter 383
+Downloading Start: http://www.eu4wiki.com/Estates_events#Cossack_Aggression_.28victim.29
+Counter 384
+Downloading Start: http://www.eu4wiki.com/Karma
+Counter 385
+Downloading Start: http://www.eu4wiki.com/Declaration_of_War
+Counter 386
+Downloading Start: http://www.eu4wiki.com/Decisions#Formation_decisions
+Counter 387
+Downloading Start: http://www.eu4wiki.com/Diplomatic_idea_group_events#Incompetent_Diplomats
+Counter 388
+Downloading Start: http://www.eu4wiki.com/Government_type
+Counter 389
+Downloading Start: http://www.eu4wiki.com/Diplomatic_idea_group
+Counter 390
+Downloading Start: http://www.eu4wiki.com/Time_to_fabricate_claims
+Counter 391
+Downloading Start: http://www.eu4wiki.com/Cost_to_fabricate_claims
+Counter 392
+Downloading Start: http://www.eu4wiki.com/Espionage#Fabricate_claim
+Counter 393
+Downloading Start: http://www.eu4wiki.com/European_regions#Germany
+Counter 394
+Downloading Start: http://www.eu4wiki.com/Friendship_events
+Counter 395
+Downloading Start: http://www.eu4wiki.com/Historical_friend
+Counter 396
+Downloading Start: http://www.eu4wiki.com/Historical_friends
+Counter 397
+Downloading Start: http://www.eu4wiki.com/Fetishist_events
+Counter 398
+Downloading Start: http://www.eu4wiki.com/Exploration_events
+Counter 399
+Downloading Start: http://www.eu4wiki.com/European_Leagues_events
+Counter 400
+Downloading Start: http://www.eu4wiki.com/Empires_events
+Counter 401
+Downloading Start: http://www.eu4wiki.com/Elections_events
+Counter 402
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Form_Colonial_Assembly
+Counter 403
+Downloading Start: http://www.eu4wiki.com/Culture_events
+Counter 404
+Downloading Start: http://www.eu4wiki.com/Culture#Germanic
+Counter 405
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_Revolutions
+Counter 406
+Downloading Start: http://www.eu4wiki.com/Idea_groups#Innovative
+Counter 407
+Downloading Start: http://www.eu4wiki.com/Corruption_events
+Counter 408
+Downloading Start: http://www.eu4wiki.com/Colonial_Life_events
+Counter 409
+Downloading Start: http://www.eu4wiki.com/Buildings#Building_slots
+Counter 410
+Downloading Start: http://www.eu4wiki.com/Chinese_Faction_events
+Counter 411
+Downloading Start: http://www.eu4wiki.com/Central_African_events
+Counter 412
+Downloading Start: http://www.eu4wiki.com/Canal_events
+Counter 413
+Downloading Start: http://www.eu4wiki.com/Arid
+Counter 414
+Downloading Start: http://www.eu4wiki.com/Tropical
+Counter 415
+Downloading Start: http://www.eu4wiki.com/Canal
+Counter 416
+Downloading Start: http://www.eu4wiki.com/Border_Friction_events
+Counter 417
+Downloading Start: http://www.eu4wiki.com/Art_of_War_events
+Counter 418
+Downloading Start: http://www.eu4wiki.com/Reformed_zealots
+Counter 419
+Downloading Start: http://www.eu4wiki.com/Protestant_zealots
+Counter 420
+Downloading Start: http://www.eu4wiki.com/American_Revolution_events
+Counter 421
+Downloading Start: http://www.eu4wiki.com/Colonial_events#Corrupt_Governor_in_.24PROVINCENAME.24
+Counter 422
+Downloading Start: http://www.eu4wiki.com/Colonization#Population
+Counter 423
+Downloading Start: http://www.eu4wiki.com/Separatist_rebels
+Counter 424
+Downloading Start: http://www.eu4wiki.com/Shrewd_Commerce_Practice
+Counter 425
+Downloading Start: http://www.eu4wiki.com/Tengri_events
+Counter 426
+Downloading Start: http://www.eu4wiki.com/Tengri_zealots
+Counter 427
+Downloading Start: http://www.eu4wiki.com/Events#Lists_of_events
+Counter 428
+Downloading Start: http://www.eu4wiki.com/List_of_events_files
+Counter 429
+Downloading Start: http://www.eu4wiki.com/Event_IDs
+Counter 430
+Downloading Start: http://www.eu4wiki.com/Sikh_events
+Counter 431
+Downloading Start: http://www.eu4wiki.com/Religious_reform_events
+Counter 432
+Downloading Start: http://www.eu4wiki.com/Religious_league_events
+Counter 433
+Downloading Start: http://www.eu4wiki.com/Reformed_religion_events
+Counter 434
+Downloading Start: http://www.eu4wiki.com/Reformation_events
+Counter 435
+Downloading Start: http://www.eu4wiki.com/Humanist_Tolerance
+Counter 436
+Downloading Start: http://www.eu4wiki.com/Protestantism_events
+Counter 437
+Downloading Start: http://www.eu4wiki.com/Nahuatl_events
+Counter 438
+Downloading Start: http://www.eu4wiki.com/Aztec_events#flavor_azt.1
+Counter 439
+Downloading Start: http://www.eu4wiki.com/Change_government
+Counter 440
+Downloading Start: http://www.eu4wiki.com/Trade_war
+Counter 441
+Downloading Start: http://www.eu4wiki.com/Missionary_events
+Counter 442
+Downloading Start: http://www.eu4wiki.com/City
+Counter 443
+Downloading Start: http://www.eu4wiki.com/Maya_religious_events
+Counter 444
+Downloading Start: http://www.eu4wiki.com/Buddhism_events
+Counter 445
+Downloading Start: http://www.eu4wiki.com/Buddhism_events#.5BFrom.GetAdjective.5D_Answer_.28negative.29
+Counter 446
+Downloading Start: http://www.eu4wiki.com/Buddhism_events#.5BFrom.GetAdjective.5D_Answer_.28positive.29
+Counter 447
+Downloading Start: http://www.eu4wiki.com/Buddhism_events#Religious_Guidance
+Counter 448
+Downloading Start: http://www.eu4wiki.com/Buddhism_events#An_Embassy_from_.5BFrom.GetName.5D
+Counter 449
+Downloading Start: http://www.eu4wiki.com/Lanka
+Counter 450
+Downloading Start: http://www.eu4wiki.com/Decisions#Invite_a_Lama_to_Settle_in_Our_Country
+Counter 451
+Downloading Start: http://www.eu4wiki.com/Diplomatic_insult
+Counter 452
+Downloading Start: http://www.eu4wiki.com/Wallachian_events
+Counter 453
+Downloading Start: http://www.eu4wiki.com/Vientianese_events
+Counter 454
+Downloading Start: http://www.eu4wiki.com/Vijayangari_events
+Counter 455
+Downloading Start: http://www.eu4wiki.com/Tuscan_events
+Counter 456
+Downloading Start: http://www.eu4wiki.com/Tupinamba_culture_events
+Counter 457
+Downloading Start: http://www.eu4wiki.com/Tlaxcala_events
+Counter 458
+Downloading Start: http://www.eu4wiki.com/Timurid_events
+Counter 459
+Downloading Start: http://www.eu4wiki.com/Threaten_war
+Counter 460
+Downloading Start: http://www.eu4wiki.com/Send_warning
+Counter 461
+Downloading Start: http://www.eu4wiki.com/Friendly
+Counter 462
+Downloading Start: http://www.eu4wiki.com/Threatened
+Counter 463
+Downloading Start: http://www.eu4wiki.com/Goverment
+Counter 464
+Downloading Start: http://www.eu4wiki.com/Monarch_power#Ruler
+Counter 465
+Downloading Start: http://www.eu4wiki.com/Timurid_missions
+Counter 466
+Downloading Start: http://www.eu4wiki.com/Sirhind
+Counter 467
+Downloading Start: http://www.eu4wiki.com/Indian_regions#Multan
+Counter 468
+Downloading Start: http://www.eu4wiki.com/Lahore
+Counter 469
+Downloading Start: http://www.eu4wiki.com/Transoxiana
+Counter 470
+Downloading Start: http://www.eu4wiki.com/Subjugation
+Counter 471
+Downloading Start: http://www.eu4wiki.com/Free_city
+Counter 472
+Downloading Start: http://www.eu4wiki.com/Tibetan_events
+Counter 473
+Downloading Start: http://www.eu4wiki.com/Altishahr
+Counter 474
+Downloading Start: http://www.eu4wiki.com/Formable_nation
+Counter 475
+Downloading Start: http://www.eu4wiki.com/Tarascan_events
+Counter 476
+Downloading Start: http://www.eu4wiki.com/Sulu_events
+Counter 477
+Downloading Start: http://www.eu4wiki.com/Westernisation
+Counter 478
+Downloading Start: http://www.eu4wiki.com/Manufactory
+Counter 479
+Downloading Start: http://www.eu4wiki.com/Institution_events#Growth_of_the_Printing_Industry
+Counter 480
+Downloading Start: http://www.eu4wiki.com/List_of_event_lists#2_year_pulse
+Counter 481
+Downloading Start: http://www.eu4wiki.com/Institution_embracement_cost
+Counter 482
+Downloading Start: http://www.eu4wiki.com/Tribal
+Counter 483
+Downloading Start: http://www.eu4wiki.com/Tribe_(disambiguation)
+Counter 484
+Downloading Start: http://www.eu4wiki.com/Tribal_nation
+Counter 485
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Federation_leader
+Counter 486
+Downloading Start: http://www.eu4wiki.com/Casus_belli#Force_Migration
+Counter 487
+Downloading Start: http://www.eu4wiki.com/Casus_belli#Humiliate
+Counter 488
+Downloading Start: http://www.eu4wiki.com/Fabricate_claim
+Counter 489
+Downloading Start: http://www.eu4wiki.com/Governments#Despotic_Monarchy
+Counter 490
+Downloading Start: http://www.eu4wiki.com/Institutions#Feudalism
+Counter 491
+Downloading Start: http://www.eu4wiki.com/Diplomatic_relation
+Counter 492
+Downloading Start: http://www.eu4wiki.com/Center_of_trade
+Counter 493
+Downloading Start: http://www.eu4wiki.com/Cult
+Counter 494
+Downloading Start: http://www.eu4wiki.com/Religions_and_denominations#Cults
+Counter 495
+Downloading Start: http://www.eu4wiki.com/Okinawa
+Counter 496
+Downloading Start: http://www.eu4wiki.com/Okinawa_(disambiguation)
+Counter 497
+Downloading Start: http://www.eu4wiki.com/Japanese_missions#Conquer_Okinawa
+Counter 498
+Downloading Start: http://www.eu4wiki.com/National_Trade_Policy
+Counter 499
+Downloading Start: http://www.eu4wiki.com/Aggressiveness
+Counter 500
+Downloading Start: http://www.eu4wiki.com/South_Sumatra
+Counter 501
+Downloading Start: http://www.eu4wiki.com/Oceanian_regions#Vogelkop_Peninsula
+Counter 502
+Downloading Start: http://www.eu4wiki.com/Oceanian_regions#Papuan_Peninsula
+Counter 503
+Downloading Start: http://www.eu4wiki.com/Central_Sumatra
+Counter 504
+Downloading Start: http://www.eu4wiki.com/North_Sumatra
+Counter 505
+Downloading Start: http://www.eu4wiki.com/East_Indian_regions#Kutai
+Counter 506
+Downloading Start: http://www.eu4wiki.com/East_Indian_regions#Brunei
+Counter 507
+Downloading Start: http://www.eu4wiki.com/Kalimantan
+Counter 508
+Downloading Start: http://www.eu4wiki.com/East_Indian_regions#Malaya_2
+Counter 509
+Downloading Start: http://www.eu4wiki.com/Songhain_events
+Counter 510
+Downloading Start: http://www.eu4wiki.com/African_regions#Central_Africa
+Counter 511
+Downloading Start: http://www.eu4wiki.com/Sokoton_events
+Counter 512
+Downloading Start: http://www.eu4wiki.com/Scottish_events
+Counter 513
+Downloading Start: http://www.eu4wiki.com/Saxon_events
+Counter 514
+Downloading Start: http://www.eu4wiki.com/Portuguese_events
+Counter 515
+Downloading Start: http://www.eu4wiki.com/Malaccan_events#Arrival_of_the_Portuguese
+Counter 516
+Downloading Start: http://www.eu4wiki.com/Portuguese_events#Incident_in_Malacca
+Counter 517
+Downloading Start: http://www.eu4wiki.com/Diplomatic_Insult
+Counter 518
+Downloading Start: http://www.eu4wiki.com/Dutch_events#Capture_of_Santa_Catarina
+Counter 519
+Downloading Start: http://www.eu4wiki.com/List_of_decision_lists#Found_Indian_Trade_Company
+Counter 520
+Downloading Start: http://www.eu4wiki.com/Moluccas_(region)
+Counter 521
+Downloading Start: http://www.eu4wiki.com/Spanish_events#Christopher_Columbus
+Counter 522
+Downloading Start: http://www.eu4wiki.com/Polish_events
+Counter 523
+Downloading Start: http://www.eu4wiki.com/Magnates
+Counter 524
+Downloading Start: http://www.eu4wiki.com/Papal_events
+Counter 525
+Downloading Start: http://www.eu4wiki.com/Papal_events#The_Counter-Reformation_and_the_Reformation_of_the_Catholic_Faith
+Counter 526
+Downloading Start: http://www.eu4wiki.com/Papal_events#The_Council_of_Trent
+Counter 527
+Downloading Start: http://www.eu4wiki.com/Papal_events#Papal_approval_of_the_Jesuit_order
+Counter 528
+Downloading Start: http://www.eu4wiki.com/Orissi_events
+Counter 529
+Downloading Start: http://www.eu4wiki.com/Omani_events
+Counter 530
+Downloading Start: http://www.eu4wiki.com/Arabia_(region)
+Counter 531
+Downloading Start: http://www.eu4wiki.com/Lower_Nubia
+Counter 532
+Downloading Start: http://www.eu4wiki.com/Asian_regions#Oman
+Counter 533
+Downloading Start: http://www.eu4wiki.com/Novgorodian_events
+Counter 534
+Downloading Start: http://www.eu4wiki.com/Idea_groups#Plutocratic
+Counter 535
+Downloading Start: http://www.eu4wiki.com/Idea_groups#Trade
+Counter 536
+Downloading Start: http://www.eu4wiki.com/Russia#Formation
+Counter 537
+Downloading Start: http://www.eu4wiki.com/Attrition
+Counter 538
+Downloading Start: http://www.eu4wiki.com/Attrition_(disambiguation)
+Counter 539
+Downloading Start: http://www.eu4wiki.com/Navy#Supply.2C_attrition_and_repair
+Counter 540
+Downloading Start: http://www.eu4wiki.com/Technology#Diplomatic
+Counter 541
+Downloading Start: http://www.eu4wiki.com/Looted
+Counter 542
+Downloading Start: http://www.eu4wiki.com/Settings#Campaign
+Counter 543
+Downloading Start: http://www.eu4wiki.com/Settings
+Counter 544
+Downloading Start: http://www.eu4wiki.com/Options
+Counter 545
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Bonus_modifiers
+Counter 546
+Downloading Start: http://www.eu4wiki.com/Lucky_nations
+Counter 547
+Downloading Start: http://www.eu4wiki.com/Static_modifiers#Lucky_nation
+Counter 548
+Downloading Start: http://www.eu4wiki.com/Patch_1.2#Lucky_Nations
+Counter 549
+Downloading Start: http://www.eu4wiki.com/Naval_units#Transports
+Counter 550
+Downloading Start: http://www.eu4wiki.com/Western
+Counter 551
+Downloading Start: http://www.eu4wiki.com/Dutch_republic
+Counter 552
+Downloading Start: http://www.eu4wiki.com/Port
+Counter 553
+Downloading Start: http://www.eu4wiki.com/Naval_units#Galleys
+Counter 554
+Downloading Start: http://www.eu4wiki.com/Naval_units#Light_ships
+Counter 555
+Downloading Start: http://www.eu4wiki.com/Naval_units#Heavy_ships
+Counter 556
+Downloading Start: http://www.eu4wiki.com/Conquistadors
+Counter 557
+Downloading Start: http://www.eu4wiki.com/Monarch
+Counter 558
+Downloading Start: http://www.eu4wiki.com/Russian_events#Grand_Embassy
+Counter 559
+Downloading Start: http://www.eu4wiki.com/Disasters#Time_of_Troubles
+Counter 560
+Downloading Start: http://www.eu4wiki.com/Empire_of_China_in_Name
+Counter 561
+Downloading Start: http://www.eu4wiki.com/Unguarded_Nomadic_Frontier
+Counter 562
+Downloading Start: http://www.eu4wiki.com/The_Dacke_War
+Counter 563
+Downloading Start: http://www.eu4wiki.com/Swedish_events#The_Centralization_Reforms_of_Gustav_Vasa
+Counter 564
+Downloading Start: http://www.eu4wiki.com/Particularist_rebels
+Counter 565
+Downloading Start: http://www.eu4wiki.com/Sk%C3%A5neland
+Counter 566
+Downloading Start: http://www.eu4wiki.com/V%C3%A4stra_G%C3%B6taland
+Counter 567
+Downloading Start: http://www.eu4wiki.com/%C3%96stra_G%C3%B6taland
+Counter 568
+Downloading Start: http://www.eu4wiki.com/%C3%96stra_Svealand
+Counter 569
+Downloading Start: http://www.eu4wiki.com/V%C3%A4stra_Svealand
+Counter 570
+Downloading Start: http://www.eu4wiki.com/Norrland
+Counter 571
+Downloading Start: http://www.eu4wiki.com/French_Revolution
+Counter 572
+Downloading Start: http://www.eu4wiki.com/Religious_rebels
+Counter 573
+Downloading Start: http://www.eu4wiki.com/Revolts
+Counter 574
+Downloading Start: http://www.eu4wiki.com/Ages#Age_of_Revolution
+Counter 575
+Downloading Start: http://www.eu4wiki.com/Dhimmi_Independence
+Counter 576
+Downloading Start: http://www.eu4wiki.com/Cossack_Independence
+Counter 577
+Downloading Start: http://www.eu4wiki.com/Plutocratic_Coup
+Counter 578
+Downloading Start: http://www.eu4wiki.com/The_Peasants%27_War
+Counter 579
+Downloading Start: http://www.eu4wiki.com/Internal_Conflicts
+Counter 580
+Downloading Start: http://www.eu4wiki.com/Skill
+Counter 581
+Downloading Start: http://www.eu4wiki.com/Fort
+Counter 582
+Downloading Start: http://www.eu4wiki.com/Russian_events#The_Pomjestija_Reform
+Counter 583
+Downloading Start: http://www.eu4wiki.com/Russian_missions
+Counter 584
+Downloading Start: http://www.eu4wiki.com/Saratov
+Counter 585
+Downloading Start: http://www.eu4wiki.com/Lower_Yik
+Counter 586
+Downloading Start: http://www.eu4wiki.com/Bashkiria_(area)
+Counter 587
+Downloading Start: http://www.eu4wiki.com/Asian_regions#Nogai
+Counter 588
+Downloading Start: http://www.eu4wiki.com/European_regions#Lithuania
+Counter 589
+Downloading Start: http://www.eu4wiki.com/Azov
+Counter 590
+Downloading Start: http://www.eu4wiki.com/Tunguska
+Counter 591
+Downloading Start: http://www.eu4wiki.com/Central_Siberia
+Counter 592
+Downloading Start: http://www.eu4wiki.com/European_regions#Finland
+Counter 593
+Downloading Start: http://www.eu4wiki.com/Vassalize#Force_vassalization_.28military.29
+Counter 594
+Downloading Start: http://www.eu4wiki.com/Government#Switching_government_type
+Counter 595
+Downloading Start: http://www.eu4wiki.com/Scavenging
+Counter 596
+Downloading Start: http://www.eu4wiki.com/Scavenging_guide
+Counter 597
+Downloading Start: http://www.eu4wiki.com/Blockades
+Counter 598
+Downloading Start: http://www.eu4wiki.com/Trade_Embargo
+Counter 599
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Select_rival
+Counter 600
+Downloading Start: http://www.eu4wiki.com/Alliance#Alliance_with_AI
+Counter 601
+Downloading Start: http://www.eu4wiki.com/European_regions#Novgorod
+Counter 602
+Downloading Start: http://www.eu4wiki.com/Norwegian_events
+Counter 603
+Downloading Start: http://www.eu4wiki.com/Neapolitan_events
+Counter 604
+Downloading Start: http://www.eu4wiki.com/Mughal_events
+Counter 605
+Downloading Start: http://www.eu4wiki.com/Diplo-vassalize
+Counter 606
+Downloading Start: http://www.eu4wiki.com/Timurids#Strategy
+Counter 607
+Downloading Start: http://www.eu4wiki.com/Mughal_missions
+Counter 608
+Downloading Start: http://www.eu4wiki.com/Diplomatic_skill
+Counter 609
+Downloading Start: http://www.eu4wiki.com/Ghor
+Counter 610
+Downloading Start: http://www.eu4wiki.com/Kabulistan
+Counter 611
+Downloading Start: http://www.eu4wiki.com/Timurid
+Counter 612
+Downloading Start: http://www.eu4wiki.com/Moroccan_events
+Counter 613
+Downloading Start: http://www.eu4wiki.com/Ming_events
+Counter 614
+Downloading Start: http://www.eu4wiki.com/Milanese_events
+Counter 615
+Downloading Start: http://www.eu4wiki.com/Mewari_events
+Counter 616
+Downloading Start: http://www.eu4wiki.com/Mayan_events
+Counter 617
+Downloading Start: http://www.eu4wiki.com/Mapuche_events
+Counter 618
+Downloading Start: http://www.eu4wiki.com/Peasant%27s_War
+Counter 619
+Downloading Start: http://www.eu4wiki.com/Forcelimits
+Counter 620
+Downloading Start: http://www.eu4wiki.com/Factions#revolutionary_republic
+Counter 621
+Downloading Start: http://www.eu4wiki.com/Revolt
+Counter 622
+Downloading Start: http://www.eu4wiki.com/Important_center_of_trade
+Counter 623
+Downloading Start: http://www.eu4wiki.com/Tribal_buildings
+Counter 624
+Downloading Start: http://www.eu4wiki.com/CB
+Counter 625
+Downloading Start: http://www.eu4wiki.com/Coring
+Counter 626
+Downloading Start: http://www.eu4wiki.com/Westernization
+Counter 627
+Downloading Start: http://www.eu4wiki.com/Migratory
+Counter 628
+Downloading Start: http://www.eu4wiki.com/Primary_nation
+Counter 629
+Downloading Start: http://www.eu4wiki.com/Mamluk_events
+Counter 630
+Downloading Start: http://www.eu4wiki.com/Malian_events
+Counter 631
+Downloading Start: http://www.eu4wiki.com/Malaccan_events
+Counter 632
+Downloading Start: http://www.eu4wiki.com/Mainzian_events
+Counter 633
+Downloading Start: http://www.eu4wiki.com/Rebellions
+Counter 634
+Downloading Start: http://www.eu4wiki.com/European_regions#Franconia
+Counter 635
+Downloading Start: http://www.eu4wiki.com/Lithuanian_events
+Counter 636
+Downloading Start: http://www.eu4wiki.com/Korean_events
+Counter 637
+Downloading Start: http://www.eu4wiki.com/Kongolese_events
+Counter 638
+Downloading Start: http://www.eu4wiki.com/Kongo_events
+Counter 639
+Downloading Start: http://www.eu4wiki.com/African_regions#Kongo
+Counter 640
+Downloading Start: http://www.eu4wiki.com/Knights%27_events
+Counter 641
+Downloading Start: http://www.eu4wiki.com/Kilwan_events
+Counter 642
+Downloading Start: http://www.eu4wiki.com/Kanem_Bornuan_events
+Counter 643
+Downloading Start: http://www.eu4wiki.com/Jaunpuri_events
+Counter 644
+Downloading Start: http://www.eu4wiki.com/Incan_events
+Counter 645
+Downloading Start: http://www.eu4wiki.com/European_diseases_events#.23European_Diseases_2
+Counter 646
+Downloading Start: http://www.eu4wiki.com/Incan_events#The_Coastal_Peoples
+Counter 647
+Downloading Start: http://www.eu4wiki.com/Hungarian_events
+Counter 648
+Downloading Start: http://www.eu4wiki.com/Administrative_skill
+Counter 649
+Downloading Start: http://www.eu4wiki.com/Hungarian_events#flavor_hun.2
+Counter 650
+Downloading Start: http://www.eu4wiki.com/Hungarian_events#flavor_hun.3
+Counter 651
+Downloading Start: http://www.eu4wiki.com/Hungarian_events#flavor_hun.10
+Counter 652
+Downloading Start: http://www.eu4wiki.com/Hanseatic_events
+Counter 653
+Downloading Start: http://www.eu4wiki.com/Church
+Counter 654
+Downloading Start: http://www.eu4wiki.com/Church_(disambiguation)
+Counter 655
+Downloading Start: http://www.eu4wiki.com/Buildings#cathedral
+Counter 656
+Downloading Start: http://www.eu4wiki.com/Buildings#temple
+Counter 657
+Downloading Start: http://www.eu4wiki.com/Hannoverian_events
+Counter 658
+Downloading Start: http://www.eu4wiki.com/Habsan_events
+Counter 659
+Downloading Start: http://www.eu4wiki.com/Casus_belli#Independence
+Counter 660
+Downloading Start: http://www.eu4wiki.com/Kanara
+Counter 661
+Downloading Start: http://www.eu4wiki.com/Konkan
+Counter 662
+Downloading Start: http://www.eu4wiki.com/Gujarati_events
+Counter 663
+Downloading Start: http://www.eu4wiki.com/Guarani_events
+Counter 664
+Downloading Start: http://www.eu4wiki.com/Greek_events
+Counter 665
+Downloading Start: http://www.eu4wiki.com/Accept_Cultural_Shift
+Counter 666
+Downloading Start: http://www.eu4wiki.com/Western_Arms_Trade
+Counter 667
+Downloading Start: http://www.eu4wiki.com/Excommunicated
+Counter 668
+Downloading Start: http://www.eu4wiki.com/Papacy#Call_a_crusade
+Counter 669
+Downloading Start: http://www.eu4wiki.com/Form_of_government
+Counter 670
+Downloading Start: http://www.eu4wiki.com/Trade_node#goa
+Counter 671
+Downloading Start: http://www.eu4wiki.com/Trade#Power
+Counter 672
+Downloading Start: http://www.eu4wiki.com/Envoys#Merchants
+Counter 673
+Downloading Start: http://www.eu4wiki.com/Trade_node#comorin_cape
+Counter 674
+Downloading Start: http://www.eu4wiki.com/Trade_node#indus
+Counter 675
+Downloading Start: http://www.eu4wiki.com/Trade_node#bengal
+Counter 676
+Downloading Start: http://www.eu4wiki.com/Trade_node#malacca
+Counter 677
+Downloading Start: http://www.eu4wiki.com/Granadan_events
+Counter 678
+Downloading Start: http://www.eu4wiki.com/The_Re-Reconquista
+Counter 679
+Downloading Start: http://www.eu4wiki.com/Toledo
+Counter 680
+Downloading Start: http://www.eu4wiki.com/Lower_Andalucia
+Counter 681
+Downloading Start: http://www.eu4wiki.com/Upper_Andalucia
+Counter 682
+Downloading Start: http://www.eu4wiki.com/Genoese_events
+Counter 683
+Downloading Start: http://www.eu4wiki.com/Funj_events
+Counter 684
+Downloading Start: http://www.eu4wiki.com/Fulo_events
+Counter 685
+Downloading Start: http://www.eu4wiki.com/Fetishist_zealots
+Counter 686
+Downloading Start: http://www.eu4wiki.com/National_ideas#Sokoto
+Counter 687
+Downloading Start: http://www.eu4wiki.com/African_regions#Jenne
+Counter 688
+Downloading Start: http://www.eu4wiki.com/Massina
+Counter 689
+Downloading Start: http://www.eu4wiki.com/Dendi
+Counter 690
+Downloading Start: http://www.eu4wiki.com/Niger_Bend
+Counter 691
+Downloading Start: http://www.eu4wiki.com/Baghena
+Counter 692
+Downloading Start: http://www.eu4wiki.com/Manding
+Counter 693
+Downloading Start: http://www.eu4wiki.com/Tekrur
+Counter 694
+Downloading Start: http://www.eu4wiki.com/Cap_Verde
+Counter 695
+Downloading Start: http://www.eu4wiki.com/Ethiopian_events
+Counter 696
+Downloading Start: http://www.eu4wiki.com/English_events
+Counter 697
+Downloading Start: http://www.eu4wiki.com/Indian_Trade_Company
+Counter 698
+Downloading Start: http://www.eu4wiki.com/Dutch_events
+Counter 699
+Downloading Start: http://www.eu4wiki.com/Delhian_events
+Counter 700
+Downloading Start: http://www.eu4wiki.com/Danish_events
+Counter 701
+Downloading Start: http://www.eu4wiki.com/Dai_Vietan_events
+Counter 702
+Downloading Start: http://www.eu4wiki.com/Southeast_Asia
+Counter 703
+Downloading Start: http://www.eu4wiki.com/National_ideas#Moluccan
+Counter 704
+Downloading Start: http://www.eu4wiki.com/National_ideas#Sulawesi
+Counter 705
+Downloading Start: http://www.eu4wiki.com/National_ideas#Pattani
+Counter 706
+Downloading Start: http://www.eu4wiki.com/National_ideas#Pagarruyung
+Counter 707
+Downloading Start: http://www.eu4wiki.com/National_ideas#Sumatran
+Counter 708
+Downloading Start: http://www.eu4wiki.com/National_ideas#Majapahit_.2F_Sunda
+Counter 709
+Downloading Start: http://www.eu4wiki.com/National_ideas#Chinese
+Counter 710
+Downloading Start: http://www.eu4wiki.com/National_ideas#Kutai
+Counter 711
+Downloading Start: http://www.eu4wiki.com/National_ideas#Malayan_Sultanate
+Counter 712
+Downloading Start: http://www.eu4wiki.com/National_ideas#Sukhothai
+Counter 713
+Downloading Start: http://www.eu4wiki.com/National_ideas#Lan_Xang
+Counter 714
+Downloading Start: http://www.eu4wiki.com/National_ideas#Khmer
+Counter 715
+Downloading Start: http://www.eu4wiki.com/National_ideas#Laotian
+Counter 716
+Downloading Start: http://www.eu4wiki.com/National_ideas#Champa
+Counter 717
+Downloading Start: http://www.eu4wiki.com/National_ideas#Ayutthaya
+Counter 718
+Downloading Start: http://www.eu4wiki.com/National_ideas#Dai_Viet
+Counter 719
+Downloading Start: http://www.eu4wiki.com/National_ideas#Taungu
+Counter 720
+Downloading Start: http://www.eu4wiki.com/National_ideas#Pegu
+Counter 721
+Downloading Start: http://www.eu4wiki.com/National_ideas#Lan_Na
+Counter 722
+Downloading Start: http://www.eu4wiki.com/National_ideas#Shan
+Counter 723
+Downloading Start: http://www.eu4wiki.com/National_ideas#Arakan
+Counter 724
+Downloading Start: http://www.eu4wiki.com/Cypriot_events
+Counter 725
+Downloading Start: http://www.eu4wiki.com/Idea_groups#religious
+Counter 726
+Downloading Start: http://www.eu4wiki.com/Civil_war
+Counter 727
+Downloading Start: http://www.eu4wiki.com/Siege_status
+Counter 728
+Downloading Start: http://www.eu4wiki.com/Monarchies
+Counter 729
+Downloading Start: http://www.eu4wiki.com/Heretics
+Counter 730
+Downloading Start: http://www.eu4wiki.com/Genoese_events#We_can_trade_in_Famagusta.21
+Counter 731
+Downloading Start: http://www.eu4wiki.com/Venetian_events#We_can_trade_in_Famagusta.21
+Counter 732
+Downloading Start: http://www.eu4wiki.com/Genoese_events#Cyprus_takes_control_of_Famagusta
+Counter 733
+Downloading Start: http://www.eu4wiki.com/Cuscoan_events
+Counter 734
+Downloading Start: http://www.eu4wiki.com/Cuyo
+Counter 735
+Downloading Start: http://www.eu4wiki.com/Panama
+Counter 736
+Downloading Start: http://www.eu4wiki.com/Neheunken
+Counter 737
+Downloading Start: http://www.eu4wiki.com/Central_Chile
+Counter 738
+Downloading Start: http://www.eu4wiki.com/Southern_Chile
+Counter 739
+Downloading Start: http://www.eu4wiki.com/Chaco
+Counter 740
+Downloading Start: http://www.eu4wiki.com/Beni
+Counter 741
+Downloading Start: http://www.eu4wiki.com/Moxos
+Counter 742
+Downloading Start: http://www.eu4wiki.com/Upper_Peru
+Counter 743
+Downloading Start: http://www.eu4wiki.com/Ucayali
+Counter 744
+Downloading Start: http://www.eu4wiki.com/Peru_(region)
+Counter 745
+Downloading Start: http://www.eu4wiki.com/Options#Nations
+Counter 746
+Downloading Start: http://www.eu4wiki.com/The_Andes
+Counter 747
+Downloading Start: http://www.eu4wiki.com/Colognian_events
+Counter 748
+Downloading Start: http://www.eu4wiki.com/Colonized
+Counter 749
+Downloading Start: http://www.eu4wiki.com/Lower_Saxony
+Counter 750
+Downloading Start: http://www.eu4wiki.com/European_regions#Westphalia
+Counter 751
+Downloading Start: http://www.eu4wiki.com/Bavarian_events#The_Archbishop_in_Cologne
+Counter 752
+Downloading Start: http://www.eu4wiki.com/Cologne#The_Bavarian_Archbishops
+Counter 753
+Downloading Start: http://www.eu4wiki.com/TPM
+Counter 754
+Downloading Start: http://www.eu4wiki.com/DOW
+Counter 755
+Downloading Start: http://www.eu4wiki.com/Land_warfare#Pips
+Counter 756
+Downloading Start: http://www.eu4wiki.com/Holy_Roman_Empire#Dismantle_HRE
+Counter 757
+Downloading Start: http://www.eu4wiki.com/Vassal_feeding
+Counter 758
+Downloading Start: http://www.eu4wiki.com/Doomstack
+Counter 759
+Downloading Start: http://www.eu4wiki.com/Diplomacy#Claim_throne
+Counter 760
+Downloading Start: http://www.eu4wiki.com/Papal_controller
+Counter 761
+Downloading Start: http://www.eu4wiki.com/Ottoman_Empire
+Counter 762
+Downloading Start: http://www.eu4wiki.com/Events#Mean_time_to_happen
+Counter 763
+Downloading Start: http://www.eu4wiki.com/Horde
+Counter 764
+Downloading Start: http://www.eu4wiki.com/Horde_(disambiguation)
+Counter 765
+Downloading Start: http://www.eu4wiki.com/Oirat_Horde
+Counter 766
+Downloading Start: http://www.eu4wiki.com/Fog_of_War
+Counter 767
+Downloading Start: http://www.eu4wiki.com/Europa_Universalis_4
+Counter 768
+Downloading Start: http://www.eu4wiki.com/Manual
+Counter 769
+Downloading Start: http://www.eu4wiki.com/Land_warfare#Artillery_barrage
+Counter 770
+Downloading Start: http://www.eu4wiki.com/Assault
+Counter 771
+Downloading Start: http://www.eu4wiki.com/Military_leader#Types_of_leaders
+Counter 772
+Downloading Start: http://www.eu4wiki.com/Economy#Loans
+Counter 773
+Downloading Start: http://www.eu4wiki.com/Repair#Ship_repair
+Counter 774
+Downloading Start: http://www.eu4wiki.com/Reinforce#Reinforcements
+Counter 775
+Downloading Start: http://www.eu4wiki.com/Thirty_Years_War_events#Scottish_Mercenaries_2
+Counter 776
+Downloading Start: http://www.eu4wiki.com/Art_of_War_events#Cruelty_of_Mercenaries
+Counter 777
+Downloading Start: http://www.eu4wiki.com/Administrative_idea_group_events#Glut_of_Mercenary_Companies.23Mercenaries_flock_to_the_Standard
+Counter 778
+Downloading Start: http://www.eu4wiki.com/Mercenary
+Counter 779
+Downloading Start: http://www.eu4wiki.com/Administrative_idea_group
+Counter 780
+Downloading Start: http://www.eu4wiki.com/Plutocratic_idea_group_events#Mercenaries_flock_to_the_Standard
+Counter 781
+Downloading Start: http://www.eu4wiki.com/Plutocratic_idea_group
+Counter 782
+Downloading Start: http://www.eu4wiki.com/English
+Counter 783
+Downloading Start: http://www.eu4wiki.com/An_Industrial_Evolution
+Counter 784
+Downloading Start: http://www.eu4wiki.com/European_regions#Wales
