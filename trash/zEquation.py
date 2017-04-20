@@ -49,7 +49,7 @@ class zEquation():
                     #numpy的数据类型问题
                 
                 except Exception,error:
-                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",tag,error))
+                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RK",category,error))
                     result=None
 
             elif tag=="P":
@@ -481,85 +481,6 @@ class zEquation():
             pass
 
         return dipprdiff
-
-
-class zEquationMX():
-    
-    def RKMX(self,zvector,zmatrix,zcomposition,zconc,temp,pres,volume=0,tag="V"):
-        
-        eosamx=0
-        eosbmx=0
-        eosa_list={}
-        eosb_list={}
-        phiv={}
-        
-        for comp in zvector:
-            eosa_list[comp]=0.42748*8.3145*8.3145*pow(zcomposition[comp].eosset[1],2.5)/zcomposition[comp].eosset[2]
-            eosb_list[comp]=0.08664*8.3145*zcomposition[comp].eosset[1]/zcomposition[comp].eosset[2]
-        
-        for comb in zmatrix:
-            pass
-        
-        #print eosa_list, eosb_list
-        #Debug usage
-        #Pure Component eosa eosb
-        
-        for member in zvector:
-            eosamx=eosamx+zconc[member]*math.sqrt(eosa_list[member])
-            eosbmx=eosbmx+zconc[member]*eosb_list[member]
-        
-        eosamx=eosamx*eosamx
-        
-        #print eosamx, eosbmx
-        #Debug usage
-        #Mixture eosamx, eosmxb, no mixing rule is added yet
-        
-        if tag=="V":
-
-            eospara=[1,-8.3145*temp/pres,eosamx/pres/math.sqrt(temp)-eosbmx*8.3145*temp/pres-eosbmx*eosbmx,-eosamx/math.sqrt(temp)*eosbmx/pres]
-                
-            try:
-                    #RK Equation
-                    eosv=numpy.poly1d(eospara)
-                    eosr=eosv.r
-
-                    #print("EOS Debug 1 %s" % eosr)
-                    vreal=lambda x:x>0
-                    eosr=filter(vreal,eosr)
-                    #print("EOS Debug 1 %s" % eosr)
-                    eosr=sorted(eosr)
-                    
-                    eosvmx=float(eosr[-1])
-                    #!The result is marked in m3/mol
-                    
-                    eoszmx=eosvmx*pres/8.3145/temp
-                    
-                    result=1000*eosvmx
-                    #numpy的数据类型问题
-                    #print ("V is %s" % result)
-                    
-            except Exception,error:
-                    print ("KeyWord:%s + %s\nMistake:%s\n"%("RKMX",tag,error))
-                    result=None
-        
-        if tag=="PHIV":
-            
-            eosvmx=self.RKMX(zvector,zmatrix,zcomposition,zconc,temp,pres,0,tag="V")/1000
-            #return eosvmx m3/mol
-            eoszmx=eosvmx*pres/8.3145/temp
-            
-            for comp in zvector:
-                lnphiv=math.log(eosvmx/(eosvmx-eosbmx))+eosb_list[comp]/(eosvmx-eosbmx)-2*zconc[comp]*eosa_list[comp]\
-                /8.3145/pow(temp,1.5)/eosbmx*math.log((eosvmx+eosbmx)/eosvmx)+eosamx*eosb_list[comp]/8.3145/pow(temp,1.5)\
-                /eosbmx/eosbmx*(math.log((eosbmx+eosvmx)/eosvmx)-eosbmx/(eosvmx+eosbmx))-math.log(eoszmx)
-                phiv[comp]=math.exp(lnphiv)
-                
-                #print("Phiv %s is %s" %(comp,phiv[comp]))
-                #Debug usage
-            
-            result=phiv
-            
-        return result
 
 
 

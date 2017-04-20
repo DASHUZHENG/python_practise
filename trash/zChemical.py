@@ -59,12 +59,9 @@ class zProperty():
         self._thermoset=['PHIV','PHIL','HV','HL','GV','GL','SV','SL','VV','VL','PHIS','HS','GS','SS','VS','WSL','HCSL']
         self._thermosubset=['PHILPC','DHV','DHL','DGV','DGL','DSV','DSL','PHISOC']
         
-        #Default Initiation基本无物性初始化
-        self.Basic_property_database(database,"Basic")
-        self.Tdep_property_database(database,"siGENERAL")
-        self.Tdep_property_set(database)
-        self.Eos_set()
-        
+        #self._biset=[]
+        #Activity did not belong to a Chemical's property
+
 
     def Basic_property_database(self,database="zPro.db",table="Basic"):
         self.bp={}
@@ -101,7 +98,6 @@ class zProperty():
                         break
                     else:
                         self.tp[att]=None
-                
                 except Exception, error:
                     self.logger.info("Function: %s; Name:%s/nError:%s" % ("Tdep_property_database",att,error))
                     #print("KeyWord:%s;\nTdep_property_database error: %s\n" % (att,error))
@@ -118,7 +114,7 @@ class zProperty():
         calcfilter=lambda x: isinstance(x,float)
         for btt in self.tp:
             try:
-                #print self.tp[btt]
+                print self.tp[btt]
                 location="si"+self.tp[btt]
                 
                 result2=db.Locate(database,location,self.name,"*","Field1")
@@ -326,23 +322,8 @@ class zProperty():
 
 
         return result
-    
-    def Fugv(self,temp,pres,p0=100000,route="1"):
-        
-        phiv=self.Phiv(temp,pres,p0,route)
-        
-        result=phiv*pres
-        
-        return result
-    
-    def Fugl(self,temp,pres,p0=100000,route="2"):
-        
-        phil=self.Phil(temp,pres,p0,route)
-        result=phil*pres
-        
-        return result
-   
-        
+
+
     def Hv(self,temp,pres,t0=298.15,p0=100000,route="2"):
 
         hbase=self.dhform
@@ -786,11 +767,11 @@ class zProperty():
 
 if __name__=="__main__":
     a=zProperty("H2O")
-    #a.Basic_property_database()
+    a.Basic_property_database()
     print("Basic property test OK: %s.api is %s\n" %(a.name,a.api))
-   #a.Tdep_property_database()
+    a.Tdep_property_database()
     print("Temp-dep property test OK: %s.LIQUIDCP is %s\n" %(a.name,a.tp["LIQUIDCP"]))
-    #a.Tdep_property_set()
+    a.Tdep_property_set()
     print("Temp-dep property load OK: %s.LIQUIDCP is %s\n" %(a.name,a.tpdata["LIQUIDCP"]))
     #Database模块
     b=zDatabase.zDatabase()
@@ -876,5 +857,3 @@ if __name__=="__main__":
     
     '''for f in range(0,201,10):
         print(f,a.Sub_dsl(f+273.15,200000,route="2"))'''
-        
-        
