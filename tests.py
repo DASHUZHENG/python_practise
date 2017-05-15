@@ -97,4 +97,4 @@ def gap(g, m, n):
 #print gap(4,30000,31000)
 
 
-
+https://www.codewars.com/kata/561e9c843a2ef5a40c0000a4/train/python
